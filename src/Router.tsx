@@ -7,6 +7,9 @@ import HomePage from "./pages/HomePage/HomePage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import RegisterPage from "./pages/RegisterPage/RegisterPage";
 
+import { loginPageAction } from "./action/loginPageAction";
+import { registerPageAction } from "./action/registerPageAction";
+
 const router = createBrowserRouter([
     {
       path: "/",
@@ -22,12 +25,12 @@ const router = createBrowserRouter([
         {
           path: "/login",
           element: <LoginPage />,
-          // action: "loginPageAction"
+          action: loginPageAction
         },
         {
           path: "/register",
           element: <RegisterPage />,
-          // action: registerPageAction
+          action: registerPageAction
         }
       ]
     }
