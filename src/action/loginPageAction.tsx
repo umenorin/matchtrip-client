@@ -1,5 +1,4 @@
-import type { Route } from "../+types/signup.ts" 
-import { redirect, data, ActionFunctionArgs } from "react-router";
+import { redirect, ActionFunctionArgs } from "react-router";
 import axios from "axios";
 
 export async function loginPageAction({ request }: ActionFunctionArgs) {
