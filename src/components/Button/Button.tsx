@@ -1,6 +1,28 @@
-import "./Button.scss"
-export default function Button({children,onClick,type ,...atributes}:any){
-    return<>
-        <button className="button" onClick={onClick} type={type}{...atributes}>{children}</button>
-    </>
+import "./Button.scss";
+
+interface ButtonProps {
+  children: React.ReactNode;
+  onClick?: () => void;
+  type?: "button" | "submit" | "reset";
+  size?: "small" | "medium" | "large" | "full-width";
+  [key: string]: any;
+}
+
+export default function Button({
+  children,
+  onClick,
+  type = "button",
+  size = "medium",
+  ...attributes
+}: ButtonProps) {
+  return (
+    <button
+      className={`button button--${size}`}
+      onClick={onClick}
+      type={type}
+      {...attributes}
+    >
+      {children}
+    </button>
+  );
 }

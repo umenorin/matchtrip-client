@@ -1,12 +1,33 @@
 .button {
-  background-color: #007bff;
+  background-color: #0098b6;
   color: white;
-  padding: 10px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  width: 100%;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+
   &:hover {
-    background-color: #0056b3;
+    background-color: darken(#0098b6, 10%);
+  }
+
+  &--small {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+  }
+
+  &--medium {
+    padding: 10px 20px;
+    font-size: 1rem;
+  }
+
+  &--large {
+    padding: 12px 24px;
+    font-size: 1.1rem;
+  }
+
+  &--full-width {
+    width: 100%;
+    padding: 12px 0;
   }
 }

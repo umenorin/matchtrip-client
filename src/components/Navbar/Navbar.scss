@@ -1,0 +1,40 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: #ffffff;
+    border-bottom: 1px solid #e0e0e0;
+  
+    @media (max-width: 429px) {
+      display: none !important; // Garante que o navbar não apareça
+    }
+  
+    &__title {
+      font-size: 1.2rem;
+      color: #333;
+      margin: 0;
+      font-weight: 500;
+    }
+  
+    &__search-button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  
+    &__search-icon {
+      color: #666;
+      font-size: 1.2rem;
+      transition: color 0.3s ease;
+  
+      &:hover {
+        color: #0098b6;
+      }
+    }
+  }
+  
