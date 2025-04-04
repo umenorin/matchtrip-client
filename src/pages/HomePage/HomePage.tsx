@@ -5,7 +5,7 @@ export default function HomePage({ userName }: any) {
       <div className="home-page">
         <h1 className="home-page__title">Bem vindo, {userName}</h1>
 
-        {/* LOGOUT BUTTON - Deveria estar no header (Layout.tsx) */}
+        {/* LOGOUT BUTTON  ok - Deveria estar no header (Layout.tsx) */}
         {/* <Button>Sair</Button> */}
       </div>
     );
