@@ -17,15 +17,24 @@
     &__dropdown-menu {
       position: absolute;
       bottom: 100%;
-      left: 0;
-      right: 0;
+      left: 50%; // Posiciona no centro do elemento pai
+      transform: translateX(-50%); // Centraliza precisamente
       background: white;
-      border-radius: 12px 12px 0 0;
-      padding: 0.5rem;
+      border-radius: 8px;
+      padding: 0.8rem;
       box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
       z-index: 1001;
-      margin-bottom: 5px;
-      animation: slideUp 0.2s ease-out;
+      margin-bottom: 8px;
+      min-width: 150px;
+      max-width: 90vw; // Garante que não ultrapasse a tela
+      width: max-content; // Largura conforme conteúdo
+  
+      // Garante que não saia da tela à esquerda
+      @media (max-width: 430px) {
+        left: 10px;
+        transform: none;
+        right: auto;
+      }
     }
   
     &__dropdown-item {

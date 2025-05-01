@@ -1,46 +1,18 @@
 import { useState, useRef, useEffect } from "react";
-import {
-  FaUserCircle,
-  FaSignInAlt,
-  FaUserPlus,
-  FaSignOutAlt,
-} from "react-icons/fa";
-import { useNavigate, Link } from "react-router-dom";
+import { FaUserCircle, FaArrowLeft } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 import "./UserDropdown.scss";
-import ModalLogin from "../ModalLogin/ModalLogin";
-import ModalRegister from "../ModalRegister/ModalRegister";
+import { useAuth } from "../../context/AuthContext";
 
-interface UserDropdownProps {
-  isAuthenticated?: boolean;
-  onLogout?: () => void;
-}
-
-const UserDropdown = ({
-  isAuthenticated = false,
-  onLogout,
-}: UserDropdownProps) => {
+const UserDropdown = () => {
+  const { user } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
-  const [showLoginModal, setShowLoginModal] = useState(false);
-  const [showRegisterModal, setShowRegisterModal] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
 
-  const handleLoginClick = () => {
+  const handleProfileClick = () => {
     setIsOpen(false);
-    setShowLoginModal(true);
-  };
-
-  const handleRegisterClick = () => {
-    setShowLoginModal(false);
-    setShowRegisterModal(true);
-  };
-
-  const handleLogout = () => {
-    if (onLogout) {
-      onLogout();
-    }
-    setIsOpen(false);
-    navigate("/"); // Redireciona para a home após logout
+    navigate("/profile");
   };
 
   useEffect(() => {
@@ -66,48 +38,27 @@ const UserDropdown = ({
         onClick={() => setIsOpen(!isOpen)}
         aria-label="Menu do usuário"
       >
-        <FaUserCircle className="user-dropdown__icon" />
+        {user?.photo ? (
+          <img 
+            src={user.photo} 
+            alt="Foto do usuário" 
+            className="user-dropdown__photo"
+          />
+        ) : (
+          <FaUserCircle className="user-dropdown__icon" />
+        )}
       </button>
 
       {isOpen && (
         <div className="user-dropdown__menu">
-          {!isAuthenticated ? (
-            <>
-              <button
-                className="user-dropdown__item"
-                onClick={handleLoginClick}
-              >
-                <FaSignInAlt className="user-dropdown__item-icon" />
-                <span>Logar</span>
-              </button>
-              <Link
-                to="/register"
-                className="user-dropdown__item"
-                onClick={handleRegisterClick}
-              >
-                <FaUserPlus className="user-dropdown__item-icon" />
-                <span>Cadastrar-se</span>
-              </Link>
-            </>
-          ) : (
-            <button className="user-dropdown__item" onClick={handleLogout}>
-              <FaSignOutAlt className="user-dropdown__item-icon" />
-              <span>Sair</span>
-            </button>
-          )}
+          <button
+            className="user-dropdown__item"
+            onClick={handleProfileClick}
+          >
+            <FaUserCircle className="user-dropdown__item-icon" />
+            <span>Meu Perfil</span>
+          </button>
         </div>
-      )}
-      {showLoginModal && (
-        <ModalLogin
-          onClose={() => setShowLoginModal(false)}
-          onRegisterClick={handleRegisterClick}
-        />
-      )}
-      {showRegisterModal && (
-        <ModalRegister
-          onClose={() => setShowRegisterModal(false)}
-          onLoginClick={handleLoginClick}
-        />
       )}
     </div>
   );

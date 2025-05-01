@@ -1,0 +1,147 @@
+.create-trip-modal {
+    &__overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(5px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+  
+    &__content {
+      background-color: white;
+      padding: 2rem;
+      border-radius: 12px;
+      width: 100%;
+      max-width: 500px;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+    }
+  
+    &__close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #666;
+    }
+  
+    &__title {
+      font-size: 1.5rem;
+      color: #333;
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+  
+    &__form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+  
+    &__photo-upload {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 1rem;
+    }
+  
+    &__photo-label {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      width: 200px;
+      height: 150px;
+      border-radius: 8px;
+      background-color: #f5f5f5;
+      border: 2px dashed #ddd;
+      transition: all 0.3s ease;
+      overflow: hidden;
+  
+      &:hover {
+        border-color: #0098b6;
+        background-color: #f0f9ff;
+      }
+    }
+  
+    &__photo-input {
+      display: none;
+    }
+  
+    &__photo-preview {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  
+    &__photo-icon {
+      font-size: 2rem;
+      color: #666;
+      margin-bottom: 0.5rem;
+    }
+  
+    &__input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+  
+    &__label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.95rem;
+      color: #555;
+    }
+  
+    &__field-icon {
+      color: #0098b6;
+    }
+  
+    &__select {
+      padding: 0.8rem;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 1rem;
+      width: 100%;
+      appearance: none;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 0.75rem center;
+      background-size: 1rem;
+  
+      &:focus {
+        outline: none;
+        border-color: #0098b6;
+      }
+    }
+  
+    &__actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+  
+    @media (max-width: 600px) {
+      &__content {
+        width: 90vw;
+        padding: 1.5rem;
+      }
+  
+      &__photo-label {
+        width: 100%;
+        height: 120px;
+      }
+    }
+  }
