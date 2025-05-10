@@ -1,6 +1,6 @@
 // src/context/AuthContext.tsx
-import { createContext, useState, useEffect, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { createContext, useState, useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 
 interface User {
   id: string;
@@ -13,6 +13,7 @@ interface User {
   budget: string;
   companionPreferences: string;
   token?: string;
+  requestedTrips?: string[];
 }
 
 interface AuthContextType {
@@ -40,14 +41,14 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   // Verificar autenticação ao carregar
   useEffect(() => {
-    const storedUser = localStorage.getItem('user');
-    const storedToken = localStorage.getItem('token');
+    const storedUser = localStorage.getItem("user");
+    const storedToken = localStorage.getItem("token");
 
     if (storedUser && storedToken) {
       try {
         setUser(JSON.parse(storedUser));
       } catch (error) {
-        console.error('Failed to parse user data', error);
+        console.error("Failed to parse user data", error);
         logout();
       }
     }
@@ -57,16 +58,16 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const login = (userData: User, token: string) => {
     const userWithToken = { ...userData, token };
     setUser(userWithToken);
-    localStorage.setItem('user', JSON.stringify(userWithToken));
-    localStorage.setItem('token', token);
-    navigate('/');
+    localStorage.setItem("user", JSON.stringify(userWithToken));
+    localStorage.setItem("token", token);
+    navigate("/");
   };
 
   const logout = () => {
     setUser(null);
-    localStorage.removeItem('user');
-    localStorage.removeItem('token');
-    navigate('/login');
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+    navigate("/login");
   };
 
   const updateUser = (updatedUser: Partial<User>) => {
@@ -74,22 +75,26 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
     const mergedUser = { ...user, ...updatedUser };
     setUser(mergedUser);
-    
+
     // Atualiza localStorage mantendo o token se existir
-    const storedToken = localStorage.getItem('token');
-    const userToStore = storedToken ? { ...mergedUser, token: storedToken } : mergedUser;
-    localStorage.setItem('user', JSON.stringify(userToStore));
+    const storedToken = localStorage.getItem("token");
+    const userToStore = storedToken
+      ? { ...mergedUser, token: storedToken }
+      : mergedUser;
+    localStorage.setItem("user", JSON.stringify(userToStore));
   };
 
   return (
-    <AuthContext.Provider value={{
-      user,
-      isAuthenticated: !!user,
-      login,
-      logout,
-      updateUser,
-      loading,
-    }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        isAuthenticated: !!user,
+        login,
+        logout,
+        updateUser,
+        loading,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
@@ -99,7 +104,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {
-    throw new Error('useAuth must be used within an AuthProvider');
+    throw new Error("useAuth must be used within an AuthProvider");
   }
   return context;
 };

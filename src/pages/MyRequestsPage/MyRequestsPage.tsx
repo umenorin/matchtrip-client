@@ -1,111 +1,124 @@
-import { useState } from 'react';
-import { useAuth } from '../../context/AuthContext';
-import './MyRequestsPage.scss';
-import { FaComments, FaPaperPlane, FaTimes } from 'react-icons/fa';
+import { useState } from "react";
+import { useAuth } from "../../context/AuthContext";
+import "./MyRequestsPage.scss";
+import { FaArrowLeft, FaComments, FaPaperPlane, FaTimes } from "react-icons/fa";
+import fotoEnzo from "../../assets/fotoEnzo.png";
+import fotoRuan from "../../assets/fotoRuan.png";
+import image51 from "../../assets/image51.png";
+import image52 from "../../assets/image52.png";
+import fotoEstela from "../../assets/fotoEstela.png";
 
 // Dados mockados das viagens curtidas (substitua pelos dados reais)
 const mockTrips = [
   {
-    id: '1',
-    title: 'Viagem para o Cataratas',
-    location: 'Foz do Iguaçu - Brasil',
-    date: '21 fev - 30 fev',
-    imageSrc: '/assets/image51.png',
+    id: "1",
+    title: "Viagem para o Cataratas",
+    location: "Foz do Iguaçu - Brasil",
+    date: "21 fev - 30 fev",
+    imageSrc: image51,
     participants: [
-      { id: '1', name: 'João Silva', photo: '/assets/user1.jpg' },
-      { id: '2', name: 'Maria Santos', photo: '/assets/user2.jpg' },
-      { id: '3', name: 'Carlos Oliveira' }
+      { id: "1", name: "João Silva", photo: fotoEnzo },
+      { id: "2", name: "Maria Santos", photo: fotoRuan },
+      { id: "3", name: "Carlos Oliveira" },
     ],
     messages: [
-      { userId: '1', text: 'Olá pessoal, tudo bem?', time: '10:30' },
-      { userId: '2', text: 'Tudo ótimo! Ansiosa pela viagem!', time: '10:32' },
-      { userId: '3', text: 'Alguém já fez o check-in?', time: '11:15' }
-    ]
+      { userId: "1", text: "Olá pessoal, tudo bem?", time: "10:30" },
+      { userId: "2", text: "Tudo ótimo! Ansiosa pela viagem!", time: "10:32" },
+      { userId: "3", text: "Alguém já fez o check-in?", time: "11:15" },
+    ],
   },
   {
-    id: '2',
-    title: 'Viagem para Praia de Pipa',
-    location: 'Rio Grande do Norte - Brasil',
-    date: '15 mar - 22 mar',
-    imageSrc: '/assets/image52.png',
+    id: "2",
+    title: "Viagem para Praia de Pipa",
+    location: "Rio Grande do Norte - Brasil",
+    date: "15 mar - 22 mar",
+    imageSrc: image52,
     participants: [
-      { id: '4', name: 'Ana Paula', photo: '/assets/user3.jpg' },
-      { id: '5', name: 'Pedro Costa' }
+      { id: "4", name: "Ana Paula", photo: fotoEstela },
+      { id: "5", name: "Pedro Costa" },
     ],
-    messages: []
-  }
+    messages: [],
+  },
 ];
 
 const MyRequestsPage = () => {
   const { user } = useAuth();
   const [selectedTrip, setSelectedTrip] = useState<any>(null);
-  const [newMessage, setNewMessage] = useState('');
+  const [newMessage, setNewMessage] = useState("");
 
   // Filtra apenas as viagens que o usuário atual está participando
-  const userTrips = mockTrips.filter(trip => 
-    trip.participants.some(p => p.id === user?.id)
-  );
+  const userTrips = mockTrips;
 
   const handleSendMessage = () => {
     if (!newMessage.trim() || !selectedTrip) return;
-    
+
     // Aqui você faria a chamada à API para enviar a mensagem
     const newMsg = {
-      userId: user?.id || '',
+      userId: user?.id || "1", // Usando '1' como mock
       text: newMessage,
-      time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+      time: new Date().toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit",
+      }),
     };
-    
+
     setSelectedTrip({
       ...selectedTrip,
-      messages: [...selectedTrip.messages, newMsg]
+      messages: [...selectedTrip.messages, newMsg],
     });
-    
-    setNewMessage('');
+
+    setNewMessage("");
   };
 
   return (
     <div className="my-requests-page">
       <header className="my-requests-page__header">
-        <h1>Minhas Solicitações</h1>
+        <button
+          className="my-requests-page__back-button"
+          onClick={() => window.history.back()}
+        >
+          <FaArrowLeft />
+        </button>
+        <h1>Minhas Viagens</h1>
       </header>
 
       <div className="my-requests-page__content">
         <div className="my-requests-page__trip-list">
-          {userTrips.length === 0 ? (
-            <div className="my-requests-page__empty">
-              <p>Você ainda não tem viagens solicitadas</p>
-            </div>
-          ) : (
-            userTrips.map(trip => (
-              <div 
-                key={trip.id} 
-                className={`my-requests-page__trip-card ${selectedTrip?.id === trip.id ? 'active' : ''}`}
-              >
-                <div className="trip-card__info">
-                  <img src={trip.imageSrc} alt={trip.title} />
-                  <div>
-                    <h3>{trip.title}</h3>
-                    <p>{trip.location}</p>
-                    <p>{trip.date}</p>
-                  </div>
+          {userTrips.map((trip) => (
+            <div
+              key={trip.id}
+              className={`my-requests-page__trip-card ${
+                selectedTrip?.id === trip.id ? "active" : ""
+              }`}
+              onClick={() => setSelectedTrip(trip)}
+            >
+              <div className="trip-card__info">
+                <img src={trip.imageSrc} alt={trip.title} />
+                <div>
+                  <h3>{trip.title}</h3>
+                  <p>{trip.location}</p>
+                  <p>{trip.date}</p>
+                  <p>Participantes: {trip.participants.length}</p>
                 </div>
-                <button 
-                  className="trip-card__chat-button"
-                  onClick={() => setSelectedTrip(trip)}
-                >
-                  <FaComments /> Chat
-                </button>
               </div>
-            ))
-          )}
+              <button
+                className="trip-card__chat-button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setSelectedTrip(trip);
+                }}
+              >
+                <FaComments /> Chat
+              </button>
+            </div>
+          ))}
         </div>
 
         {selectedTrip && (
           <div className="my-requests-page__chat-container">
             <div className="chat-container__header">
               <h3>{selectedTrip.title}</h3>
-              <button 
+              <button
                 className="chat-container__close-button"
                 onClick={() => setSelectedTrip(null)}
               >
@@ -133,12 +146,16 @@ const MyRequestsPage = () => {
 
             <div className="chat-container__messages">
               {selectedTrip.messages.length === 0 ? (
-                <p className="no-messages">Nenhuma mensagem ainda. Seja o primeiro a enviar!</p>
+                <p className="no-messages">
+                  Nenhuma mensagem ainda. Seja o primeiro a enviar!
+                </p>
               ) : (
                 selectedTrip.messages.map((msg: any, index: number) => (
-                  <div 
-                    key={index} 
-                    className={`message ${msg.userId === user?.id ? 'sent' : 'received'}`}
+                  <div
+                    key={index}
+                    className={`message ${
+                      msg.userId === user?.id ? "sent" : "received"
+                    }`}
                   >
                     <div className="message__content">
                       <p>{msg.text}</p>
@@ -155,9 +172,9 @@ const MyRequestsPage = () => {
                 value={newMessage}
                 onChange={(e) => setNewMessage(e.target.value)}
                 placeholder="Digite sua mensagem..."
-                onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
+                onKeyPress={(e) => e.key === "Enter" && handleSendMessage()}
               />
-              <button 
+              <button
                 className="send-button"
                 onClick={handleSendMessage}
                 disabled={!newMessage.trim()}

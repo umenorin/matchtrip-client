@@ -1,5 +1,5 @@
 import { useAuth } from "../../context/AuthContext";
-import { FaArrowLeft, FaEdit, FaUserCircle } from "react-icons/fa";
+import { FaArrowLeft, FaEdit, FaSuitcase, FaUserCircle } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import "./ProfilePage.scss";
 
@@ -21,7 +21,7 @@ const ProfilePage = () => {
   return (
     <div className="profile-page">
       <header className="profile-page__header">
-        <button 
+        <button
           className="profile-page__back-button"
           onClick={() => navigate(-1)}
         >
@@ -34,9 +34,9 @@ const ProfilePage = () => {
         <div className="profile-page__photo-section">
           <div className="profile-page__photo-container">
             {userData.photo ? (
-              <img 
-                src={userData.photo} 
-                alt={userData.name} 
+              <img
+                src={userData.photo}
+                alt={userData.name}
                 className="profile-page__photo"
               />
             ) : (
@@ -81,11 +81,18 @@ const ProfilePage = () => {
           </div>
         </div>
 
-        <button 
+        <button
           className="profile-page__edit-button"
           onClick={() => navigate("/profile/edit")}
         >
           <FaEdit /> Editar Perfil
+        </button>
+
+        <button
+          className="profile-page__trips-button"
+          onClick={() => navigate("/my-requests")}
+        >
+          <FaSuitcase /> Minhas Viagens
         </button>
       </div>
     </div>
