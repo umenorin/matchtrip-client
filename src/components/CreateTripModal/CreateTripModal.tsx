@@ -19,7 +19,7 @@ interface TripData {
   tripDate: string;
 }
 
-const CreateTripModal = ({ onClose, onSubmit }: CreateTripModalProps) => {
+const CreateTripModal = ({ onClose, onSubmit }: CreateTripModalProps | any) => {
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [formData, setFormData] = useState<TripData>({
     tripPhoto: null,
