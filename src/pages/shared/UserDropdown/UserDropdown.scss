@@ -9,6 +9,7 @@
     border: none;
     padding: 2rem;
     color: #0098b6;
+    font-size: 1.6rem;
   }
 
   &__toggle {
@@ -34,6 +35,12 @@
     object-fit: cover;
     border: 2px solid #fff;
     transition: all 0.2s ease;
+  }
+
+  &__perfil-none__img {
+    width: 40%;
+    height: 40%;
+    align-content: center;
   }
 
   &__icon {

@@ -1,12 +1,14 @@
-import { useState } from "react";
-import logo from "../../../assets/logo.png";
-import Button from "../../../components/Button/Button";
-import Navbar from "../Navbar/Navbar";
-import "./Header.scss";
-import UserDropdown from "../UserDropdown/UserDropdown";
+import { useState } from 'react';
+import { useLocation } from 'react-router-dom'; // Adicione isso
+import logo from '../../../assets/logo.png';
+import Navbar from '../Navbar/Navbar';
+import './Header.scss';
+import UserDropdown from '../UserDropdown/UserDropdown';
+import { ImMagicWand } from 'react-icons/im';
 
 export default function Header() {
   const [_showCreateTripModal, setShowCreateTripModal] = useState(false);
+  const location = useLocation(); // Pegue a localização atual
 
   return (
     <header className="header">
@@ -15,17 +17,13 @@ export default function Header() {
         <img src={logo} alt="Logo" className="header__logo" />
       </div>
       {/* Centro - Navbar */}
-      <div className="header__navbar">
-        <Navbar title="Aonde você quer ir?" />
-      </div>
+      {location.pathname !== "/register" && (
+        <div className="header__navbar">
+          <Navbar title="Aonde você quer ir?" />
+        </div>
+      )}
       {/* Lado direito - Ações */}
       <div className="header__actions">
-        <Button
-          onClick={() => setShowCreateTripModal(true)}
-          className={"header__button"}
-        >
-          Criar nova Viagem
-        </Button>
         <UserDropdown />
       </div>
     </header>

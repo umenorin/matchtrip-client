@@ -3,6 +3,7 @@ import "./RegisterPage.scss";
 import Button from "../../components/Button/Button";
 import Input from "../../components/Input/Input";
 
+
 export default function RegisterPage() {
   return (
     <div className="register-page">
