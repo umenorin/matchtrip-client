@@ -13,7 +13,10 @@
 
   &__navbar {
     width: 100%;
+    box-sizing: border-box;
+    
   }
+
 
   &__actions {
     display: flex;
