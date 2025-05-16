@@ -18,6 +18,11 @@
     height: 180px;
     overflow: hidden;
   }
+  
+  .card__people-icon {
+    color: #0098b6;
+    font-size: 0.9rem;
+}
 
   &__image {
     width: 100%;
@@ -48,8 +53,9 @@
   }
 
   &__status {
-    display: inline-flex;
+    display: flex;
     align-items: center;
+    justify-content: end;
     padding: 0.3rem 0.8rem;
     border-radius: 20px;
     font-size: 0.8rem;
