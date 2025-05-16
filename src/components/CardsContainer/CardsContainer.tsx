@@ -1,4 +1,4 @@
-import image51 from "../../assets/image51.png" 
+import image51 from "../../assets/image51.png";
 import image52 from "../../assets/image52.png";
 import image53 from "../../assets/image53.png";
 import image54 from "../../assets/image54.png";
@@ -6,6 +6,8 @@ import fotoEnzo from "../../assets/fotoEnzo.png";
 import fotoRuan from "../../assets/fotoRuan.png";
 import { useState } from "react";
 import Card from "./Card/Card";
+
+import "./CardsContainer.scss";
 
 interface TripData {
   imageSrc: string;
@@ -97,15 +99,14 @@ export default function CardsContainer() {
     <>
       <section className="cards-container">
         {trips.map((trip, index) => (
-          <div key={index} onClick={() => handleCardClick(trip)}>
-            <Card
-              imageSrc={trip.imageSrc}
-              title={trip.title}
-              location={trip.location}
-              date={trip.date}
-              status={`${trip.participants?.length || 0}/${trip.maxParticipants}`}
-            />
-          </div>
+          <Card
+            key={index}
+            imageSrc={trip.imageSrc}
+            title={trip.title}
+            location={trip.location}
+            date={trip.date}
+            status={`${trip.participants?.length || 0}/${trip.maxParticipants}`}
+          />
         ))}
       </section>
     </>

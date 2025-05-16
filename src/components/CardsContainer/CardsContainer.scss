@@ -1,0 +1,7 @@
+.cards-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  padding: 2rem 8rem;
+  max-width: 180rem;
+  margin: 0 auto;
+}
