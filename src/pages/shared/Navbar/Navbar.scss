@@ -2,13 +2,10 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem;
+    padding: 1.2rem 2rem;
     background-color: #ffffff;
     border-bottom: 1px solid #e0e0e0;
-  
-    @media (max-width: 429px) {
-      display: none !important; // Garante que o navbar não apareça
-    }
+    border-radius: 8px;
   
     &__title {
       font-size: 1.2rem;

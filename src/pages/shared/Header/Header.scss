@@ -1,0 +1,21 @@
+.header {
+  margin-bottom: 1.5rem;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8rem;
+  padding: 2rem 4rem;
+
+  &__logo {
+    width: 100%;
+  }
+
+  &__navbar {
+    width: 100%;
+  }
+
+  &__actions {
+    display: flex;
+  }
+}

@@ -10,11 +10,12 @@ import { loginPageAction } from "./action/loginPageAction";
 import { registerPageAction } from "./action/registerPageAction";
 import { editProfileAction } from "./pages/EditProfilePage/editProfileAction";
 import MyRequestsPage from "./pages/MyRequestsPage/MyRequestsPage";
+import Layout from "./pages/shared/Layout/Layout";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    // element: <Layout />,
+    element: <Layout />,
     errorElement: <ErrorPage />,
     children: [
       {
@@ -25,12 +26,12 @@ const router = createBrowserRouter([
       {
         path: "/login",
         element: <LoginPage />,
-        action: loginPageAction
+        action: loginPageAction,
       },
       {
         path: "/register",
         element: <RegisterPage />,
-        action: registerPageAction
+        action: registerPageAction,
       },
       {
         path: "/profile",
@@ -49,8 +50,8 @@ const router = createBrowserRouter([
         element: <MyRequestsPage />,
         // loader: protectedLoader (se quiser proteger a rota)
       },
-    ]
-  }
+    ],
+  },
 ]);
 
 export default router;
