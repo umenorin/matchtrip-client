@@ -2,7 +2,6 @@ import { useState } from "react";
 import logo from "../../../assets/logo.png";
 import Button from "../../../components/Button/Button";
 import Navbar from "../Navbar/Navbar";
-
 import "./Header.scss";
 import UserDropdown from "../UserDropdown/UserDropdown";
 
@@ -21,7 +20,10 @@ export default function Header() {
       </div>
       {/* Lado direito - Ações */}
       <div className="header__actions">
-        <Button size="medium" onClick={() => setShowCreateTripModal(true)}>
+        <Button
+          onClick={() => setShowCreateTripModal(true)}
+          className={"header__button"}
+        >
           Criar nova Viagem
         </Button>
         <UserDropdown />

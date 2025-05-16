@@ -17,5 +17,13 @@
 
   &__actions {
     display: flex;
+    align-items: center;
   }
+
+  &__button {
+    width: 12rem;
+    height: 5rem;
+  }
+  
+
 }
