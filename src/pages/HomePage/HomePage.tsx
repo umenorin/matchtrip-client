@@ -113,9 +113,7 @@ export default function HomePage() {
   return (
     <div className="home-page">
       {/* Filtro de categorias */}
-      <section className="home-page__filter">
-        <CategoryFilter />
-      </section>
+      <CategoryFilter />
 
       <section className="cards-container">
         {trips.map((trip, index) => (
