@@ -17,7 +17,7 @@ export default function Header() {
         <img src={logo} alt="Logo" className="header__logo" />
       </div>
       {/* Centro - Navbar */}
-      {location.pathname !== "/register" && (
+      {!['/register', '/login'].includes(location.pathname) && (
         <div className="header__navbar">
           <Navbar title="Aonde você quer ir?" />
         </div>
