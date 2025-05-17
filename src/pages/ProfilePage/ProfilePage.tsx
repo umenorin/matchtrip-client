@@ -1,8 +1,8 @@
-import { useAuth } from '../../context/AuthContext';
-import { FaArrowLeft, FaEdit, FaSuitcase, FaUserCircle } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom';
-import './ProfilePage.scss';
-import { useState, useRef, useEffect } from 'react';
+import { useAuth } from "../../context/AuthContext";
+import { FaArrowLeft, FaEdit, FaSuitcase, FaUserCircle } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+import "./ProfilePage.scss";
+import { useState, useRef, useEffect } from "react";
 
 const ProfilePage = () => {
   const { user } = useAuth();
@@ -10,45 +10,45 @@ const ProfilePage = () => {
 
   // Dados mockados (substitua pelos dados reais do usuário)
   const userData = {
-    name: user?.name || 'Usuário',
-    photo: user?.photo || '',
-    bio: 'Apaixonado por viagens e aventuras ao ar livre!',
-    birthDate: '15/03/1990',
-    travelPreferences: ['Praia', 'Montanha', 'Aventura'],
-    budget: 'R$ 2.000 - R$ 5.000',
-    companionPreferences: 'Casais ou pequenos grupos',
+    name: user?.name || "Usuário",
+    photo: user?.photo || "",
+    bio: "Apaixonado por viagens e aventuras ao ar livre!",
+    birthDate: "15/03/1990",
+    travelPreferences: ["Praia", "Montanha", "Aventura"],
+    budget: "R$ 2.000 - R$ 5.000",
+    companionPreferences: "Casais ou pequenos grupos",
   };
 
   const [travelPreferences, setTravelPreferences] = useState<string[]>(
-    userData.travelPreferences
+    userData.travelPreferences,
   );
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const travelOptions = [
-    'Praia',
-    'Montanha',
-    'Aventura',
-    'Cultura',
-    'Gastronomia',
-    'Ecoturismo',
+    "Praia",
+    "Montanha",
+    "Aventura",
+    "Cultura",
+    "Gastronomia",
+    "Ecoturismo",
   ];
 
   const budgetOptions = [
-    'R$ 0 - R$ 1.000',
-    'R$ 1.000 - R$ 2.000',
-    'R$ 2.000 - R$ 5.000',
-    'R$ 5.000 - R$ 10.000',
-    'Acima de R$ 10.000',
+    "R$ 0 - R$ 1.000",
+    "R$ 1.000 - R$ 2.000",
+    "R$ 2.000 - R$ 5.000",
+    "R$ 5.000 - R$ 10.000",
+    "Acima de R$ 10.000",
   ];
 
   const companionOptions = [
-    'Casais',
-    'Pequenos grupos',
-    'Família',
-    'Sozinho',
-    'Amigos',
-    'Pets',
+    "Casais",
+    "Pequenos grupos",
+    "Família",
+    "Sozinho",
+    "Amigos",
+    "Pets",
   ];
 
   // Estados para os inputs
@@ -56,7 +56,7 @@ const ProfilePage = () => {
   const [birthDate, setBirthDate] = useState(userData.birthDate);
 
   const [budget, setBudget] = useState<string[]>(
-    [userData.budget] // ou [] se quiser começar vazio
+    [userData.budget], // ou [] se quiser começar vazio
   );
   const [budgetDropdownOpen, setBudgetDropdownOpen] = useState(false);
   const budgetDropdownRef = useRef<HTMLDivElement>(null);
@@ -64,7 +64,7 @@ const ProfilePage = () => {
   const [companions, setCompanions] = useState<string[]>(
     userData.companionPreferences
       ? userData.companionPreferences.split(/, ?/)
-      : []
+      : [],
   );
   const [companionsDropdownOpen, setCompanionsDropdownOpen] = useState(false);
   const companionsDropdownRef = useRef<HTMLDivElement>(null);
@@ -90,15 +90,15 @@ const ProfilePage = () => {
         setCompanionsDropdownOpen(false);
       }
     }
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   useEffect(() => {
     if (companionsDropdownOpen && companionsDropdownRef.current) {
       companionsDropdownRef.current.scrollIntoView({
-        behavior: 'smooth',
-        block: 'nearest',
+        behavior: "smooth",
+        block: "nearest",
       });
     }
   }, [companionsDropdownOpen]);
@@ -110,7 +110,7 @@ const ProfilePage = () => {
     setTravelPreferences((prev) =>
       prev.includes(option)
         ? prev.filter((item) => item !== option)
-        : [...prev, option]
+        : [...prev, option],
     );
   }
 
@@ -119,7 +119,7 @@ const ProfilePage = () => {
     setBudget((prev) =>
       prev.includes(option)
         ? prev.filter((item) => item !== option)
-        : [...prev, option]
+        : [...prev, option],
     );
   }
 
@@ -128,7 +128,7 @@ const ProfilePage = () => {
     setCompanions((prev) =>
       prev.includes(option)
         ? prev.filter((item) => item !== option)
-        : [...prev, option]
+        : [...prev, option],
     );
   }
 
@@ -209,7 +209,7 @@ const ProfilePage = () => {
                         onClick={(e) => {
                           e.stopPropagation();
                           setTravelPreferences((prev) =>
-                            prev.filter((item) => item !== pref)
+                            prev.filter((item) => item !== pref),
                           );
                         }}
                       >
@@ -219,7 +219,7 @@ const ProfilePage = () => {
                   ))
                 )}
                 <span className="profile-page__dropdown-arrow">
-                  {dropdownOpen ? '▲' : '▼'}
+                  {dropdownOpen ? "▲" : "▼"}
                 </span>
               </div>
               {dropdownOpen && (
@@ -227,7 +227,7 @@ const ProfilePage = () => {
                   {travelOptions.map((option) => (
                     <div
                       key={option}
-                      className={`profile-page__dropdown-item${travelPreferences.includes(option) ? ' selected' : ''}`}
+                      className={`profile-page__dropdown-item${travelPreferences.includes(option) ? " selected" : ""}`}
                       onClick={() => toggleOption(option)}
                     >
                       <input
@@ -267,7 +267,7 @@ const ProfilePage = () => {
                         onClick={(e) => {
                           e.stopPropagation();
                           setBudget((prev) =>
-                            prev.filter((item) => item !== option)
+                            prev.filter((item) => item !== option),
                           );
                         }}
                       >
@@ -277,7 +277,7 @@ const ProfilePage = () => {
                   ))
                 )}
                 <span className="profile-page__dropdown-arrow">
-                  {budgetDropdownOpen ? '▲' : '▼'}
+                  {budgetDropdownOpen ? "▲" : "▼"}
                 </span>
               </div>
               {budgetDropdownOpen && (
@@ -285,7 +285,7 @@ const ProfilePage = () => {
                   {budgetOptions.map((option) => (
                     <div
                       key={option}
-                      className={`profile-page__dropdown-item${budget.includes(option) ? ' selected' : ''}`}
+                      className={`profile-page__dropdown-item${budget.includes(option) ? " selected" : ""}`}
                       onClick={() => toggleBudget(option)}
                     >
                       <input
@@ -325,7 +325,7 @@ const ProfilePage = () => {
                         onClick={(e) => {
                           e.stopPropagation();
                           setCompanions((prev) =>
-                            prev.filter((item) => item !== option)
+                            prev.filter((item) => item !== option),
                           );
                         }}
                       >
@@ -335,7 +335,7 @@ const ProfilePage = () => {
                   ))
                 )}
                 <span className="profile-page__dropdown-arrow">
-                  {companionsDropdownOpen ? '▲' : '▼'}
+                  {companionsDropdownOpen ? "▲" : "▼"}
                 </span>
               </div>
               {companionsDropdownOpen && (
@@ -343,7 +343,7 @@ const ProfilePage = () => {
                   {companionOptions.map((option) => (
                     <div
                       key={option}
-                      className={`profile-page__dropdown-item${companions.includes(option) ? ' selected' : ''}`}
+                      className={`profile-page__dropdown-item${companions.includes(option) ? " selected" : ""}`}
                       onClick={() => toggleCompanion(option)}
                     >
                       <input
@@ -361,14 +361,14 @@ const ProfilePage = () => {
 
           <button
             className="profile-page__edit-button"
-            onClick={() => navigate('/profile/edit')}
+            onClick={() => navigate("/profile/edit")}
           >
             <FaEdit /> Editar Perfil
           </button>
 
           <button
             className="profile-page__trips-button"
-            onClick={() => navigate('/my-requests')}
+            onClick={() => navigate("/my-requests")}
           >
             <FaSuitcase /> Minhas Viagens
           </button>

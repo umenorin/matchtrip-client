@@ -5,11 +5,11 @@ export default function Input({ name, type, placeholder, ...props }: any) {
     <div className="container">
       <input
         className="container__input"
-        name={name}  
+        name={name}
         id={name}
         type={type}
         placeholder={placeholder}
-        {...props} 
+        {...props}
       />
     </div>
   );

@@ -8,7 +8,6 @@
   background: #ffff;
   overflow-y: auto;
   height: 100vh;
- 
 
   &__header {
     width: 100%;
@@ -20,7 +19,7 @@
 
     h1 {
       font-size: 2rem;
-      color: #0098B6;
+      color: #0098b6;
       font-weight: 500;
       width: 100%;
       text-align: center;
@@ -32,7 +31,7 @@
     background: none;
     border: none;
     font-size: 1.5rem;
-    color: #0098B6;
+    color: #0098b6;
     cursor: pointer;
     margin-right: 0.5rem;
     transition: color 0.2s;
@@ -46,7 +45,7 @@
     background: #fff;
     padding: 20px;
     border-radius: 5px;
-    box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     width: 100%;
     max-width: 400px;
     display: flex;
@@ -96,7 +95,7 @@
   &__name {
     font-size: 1.2rem;
     font-weight: 600;
-    color: #0098B6;
+    color: #0098b6;
     margin: 0;
     text-align: center;
   }
@@ -117,7 +116,7 @@
     h3 {
       margin: 0 0 0.3rem 0;
       font-size: 1rem;
-      color: #0098B6;
+      color: #0098b6;
       font-weight: 600;
     }
 
@@ -170,7 +169,7 @@
 
   &__dropdown-arrow {
     margin-left: auto;
-    color: #0098B6;
+    color: #0098b6;
     font-size: 1rem;
     padding-left: 0.5rem;
   }
@@ -181,9 +180,9 @@
     left: 0;
     width: 100%;
     background: #fff;
-    border: 1px solid #0098B6;
+    border: 1px solid #0098b6;
     border-radius: 4px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     z-index: 10;
     max-height: 320px; // aumente aqui para mostrar mais opções
     overflow-y: auto;
@@ -201,6 +200,7 @@
     &:hover {
       background: #e0f7fa;
     }
+
     &.selected {
       background: #b3e0ea;
       font-weight: 600;
@@ -208,7 +208,7 @@
   }
 
   &__tag {
-    background: #0098B6;
+    background: #0098b6;
     color: #fff;
     border-radius: 12px;
     padding: 0.2rem 0.7rem;
@@ -245,11 +245,13 @@
     align-items: center;
     gap: 0.7rem;
     justify-content: center;
-    transition: background 0.2s, color 0.2s;
+    transition:
+      background 0.2s,
+      color 0.2s;
   }
 
   &__edit-button {
-    background: #0098B6;
+    background: #0098b6;
     color: #fff;
 
     &:hover {
@@ -259,7 +261,7 @@
 
   &__trips-button {
     background: #e0f7fa;
-    color: #0098B6;
+    color: #0098b6;
 
     &:hover {
       background: #b3e0ea;
@@ -269,11 +271,13 @@
 
   // Responsividade para telas menores
   @media (max-width: 500px) {
+
     &__header,
     &__content {
       max-width: 98vw;
       padding: 10px;
     }
+
     &__photo-container {
       width: 60px;
       height: 60px;

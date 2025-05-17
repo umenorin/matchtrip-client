@@ -1,8 +1,14 @@
-import { useState, useRef } from 'react';
-import { FaCamera, FaCalendarAlt, FaMapMarkerAlt, FaUsers, FaMoneyBillWave } from 'react-icons/fa';
-import Button from '../Button/Button';
-import Input from '../Input/Input';
-import './CreateTripModal.scss';
+import { useState, useRef } from "react";
+import {
+  FaCamera,
+  FaCalendarAlt,
+  FaMapMarkerAlt,
+  FaUsers,
+  FaMoneyBillWave,
+} from "react-icons/fa";
+import Button from "../Button/Button";
+import Input from "../Input/Input";
+import "./CreateTripModal.scss";
 
 interface CreateTripModalProps {
   onClose: () => void;
@@ -23,26 +29,28 @@ const CreateTripModal = ({ onClose, onSubmit }: CreateTripModalProps | any) => {
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [formData, setFormData] = useState<TripData>({
     tripPhoto: null,
-    groupName: '',
-    tripType: 'turismo',
+    groupName: "",
+    tripType: "turismo",
     travelersCount: 2,
-    financialProfile: 'medio',
-    location: '',
-    tripDate: ''
+    financialProfile: "medio",
+    location: "",
+    tripDate: "",
   });
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+  ) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
-      setFormData(prev => ({ ...prev, tripPhoto: file }));
-      
+      setFormData((prev) => ({ ...prev, tripPhoto: file }));
+
       const reader = new FileReader();
       reader.onloadend = () => {
         setPreviewImage(reader.result as string);
@@ -70,17 +78,17 @@ const CreateTripModal = ({ onClose, onSubmit }: CreateTripModalProps | any) => {
           {/* Foto da Viagem */}
           <div className="create-trip-modal__photo-upload">
             <label className="create-trip-modal__photo-label">
-              <input 
-                type="file" 
+              <input
+                type="file"
                 ref={fileInputRef}
-                accept="image/*" 
-                onChange={handleFileChange} 
+                accept="image/*"
+                onChange={handleFileChange}
                 className="create-trip-modal__photo-input"
               />
               {previewImage ? (
-                <img 
-                  src={previewImage} 
-                  alt="Preview da viagem" 
+                <img
+                  src={previewImage}
+                  alt="Preview da viagem"
                   className="create-trip-modal__photo-preview"
                 />
               ) : (
@@ -186,22 +194,16 @@ const CreateTripModal = ({ onClose, onSubmit }: CreateTripModalProps | any) => {
               type="date"
               value={formData.tripDate}
               onChange={handleInputChange}
-              min={new Date().toISOString().split('T')[0]}
+              min={new Date().toISOString().split("T")[0]}
               required
             />
           </div>
 
           <div className="create-trip-modal__actions">
-            <Button 
-              type="button" 
-              variant="outline"
-              onClick={onClose}
-            >
+            <Button type="button" variant="outline" onClick={onClose}>
               Cancelar
             </Button>
-            <Button type="submit">
-              Criar Viagem
-            </Button>
+            <Button type="submit">Criar Viagem</Button>
           </div>
         </form>
       </div>

@@ -4,7 +4,6 @@ import image53 from "../../assets/image53.png";
 import image54 from "../../assets/image54.png";
 import fotoEnzo from "../../assets/fotoEnzo.png";
 import fotoRuan from "../../assets/fotoRuan.png";
-import { useState } from "react";
 import Card from "./Card/Card";
 
 import "./CardsContainer.scss";
@@ -25,26 +24,6 @@ interface TripData {
 }
 
 export default function CardsContainer() {
-  const [_selectedTrip, setSelectedTrip] = useState<TripData | null>(null);
-  const [favorites, setFavorites] = useState<number[]>([]);
-
-  const handleCardClick = (trip: TripData) => {
-    setSelectedTrip(trip);
-  };
-
-  const handleCloseModal = () => {
-    setSelectedTrip(null);
-  };
-
-  const handleLikeTrip = (index: number) => {
-    if (favorites.includes(index)) {
-      setFavorites(favorites.filter((i) => i !== index));
-    } else {
-      setFavorites([...favorites, index]);
-    }
-    handleCloseModal();
-  };
-
   const trips: TripData[] = [
     {
       imageSrc: image51,

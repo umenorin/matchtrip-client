@@ -1,6 +1,6 @@
-import { 
-  FaHome, 
-  FaSearch, 
+import {
+  FaHome,
+  FaSearch,
   FaUser,
   FaSignInAlt,
   FaUserPlus,
@@ -17,9 +17,9 @@ interface MobileSidebarProps {
   onLogout?: () => void;
 }
 
-export default function MobileSidebar({ 
-  isAuthenticated = false, 
-  onLogout 
+export default function MobileSidebar({
+  isAuthenticated = false,
+  onLogout,
 }: MobileSidebarProps) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
@@ -45,7 +45,10 @@ export default function MobileSidebar({
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
         setIsDropdownOpen(false);
       }
     };
@@ -62,34 +65,34 @@ export default function MobileSidebar({
             <FaHome className="mobile-sidebar__icon" />
             <span>Início</span>
           </button>
-          
+
           <button className="mobile-sidebar__item">
             <FaSearch className="mobile-sidebar__icon" />
             <span>Pesquisar</span>
           </button>
-          
+
           <div className="mobile-sidebar__dropdown-container" ref={dropdownRef}>
-            <button 
+            <button
               className="mobile-sidebar__item"
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
             >
               <FaUser className="mobile-sidebar__icon" />
-              <span>{isAuthenticated ? 'Perfil' : 'Logar'}</span>
+              <span>{isAuthenticated ? "Perfil" : "Logar"}</span>
               {/* Removido o ícone . . . de seta */}
             </button>
-            
+
             {isDropdownOpen && (
               <div className="mobile-sidebar__dropdown-menu">
                 {!isAuthenticated ? (
                   <>
-                    <button 
+                    <button
                       className="mobile-sidebar__dropdown-item"
                       onClick={handleLoginClick}
                     >
                       <FaSignInAlt className="mobile-sidebar__dropdown-icon" />
                       <span>Logar</span>
                     </button>
-                    <button 
+                    <button
                       className="mobile-sidebar__dropdown-item"
                       onClick={handleRegisterClick}
                     >
@@ -98,7 +101,7 @@ export default function MobileSidebar({
                     </button>
                   </>
                 ) : (
-                  <button 
+                  <button
                     className="mobile-sidebar__dropdown-item"
                     onClick={handleLogout}
                   >
@@ -113,12 +116,12 @@ export default function MobileSidebar({
       </nav>
 
       {showLoginModal && (
-        <ModalLogin 
+        <ModalLogin
           onClose={() => setShowLoginModal(false)}
           onRegisterClick={handleRegisterClick}
         />
       )}
-      
+
       {showRegisterModal && (
         <ModalRegister
           onClose={() => setShowRegisterModal(false)}

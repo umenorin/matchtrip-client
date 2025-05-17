@@ -9,7 +9,7 @@ interface NavbarProps {
 export default function Navbar({ title, onSearchClick }: NavbarProps) {
   return (
     <nav className="navbar">
-      <input className="navbar__title" placeholder= {title}></input>
+      <input className="navbar__title" placeholder={title}></input>
       <button className="navbar__search-button" onClick={onSearchClick}>
         <FaSearch className="navbar__search-icon" />
       </button>

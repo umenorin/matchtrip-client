@@ -21,7 +21,7 @@ const EditProfilePage = () => {
   return (
     <div className="profile-page">
       <header className="profile-page__header">
-        <button 
+        <button
           className="profile-page__back-button"
           onClick={() => navigate(-1)}
         >
@@ -34,9 +34,9 @@ const EditProfilePage = () => {
         <div className="profile-page__photo-section">
           <div className="profile-page__photo-container">
             {user?.photo ? (
-              <img 
-                src={user.photo} 
-                alt={user.name} 
+              <img
+                src={user.photo}
+                alt={user.name}
                 className="profile-page__photo"
               />
             ) : (
@@ -51,7 +51,10 @@ const EditProfilePage = () => {
               accept="image/*"
               className="profile-page__photo-input"
             />
-            <label htmlFor="profile-photo" className="profile-page__photo-label">
+            <label
+              htmlFor="profile-photo"
+              className="profile-page__photo-label"
+            >
               Alterar Foto
             </label>
           </div>
@@ -90,7 +93,9 @@ const EditProfilePage = () => {
           </div>
 
           <div className="profile-page__info-group">
-            <label htmlFor="travelPreferences">Preferências de Viagem (separadas por vírgula)</label>
+            <label htmlFor="travelPreferences">
+              Preferências de Viagem (separadas por vírgula)
+            </label>
             <input
               type="text"
               id="travelPreferences"
@@ -110,7 +115,9 @@ const EditProfilePage = () => {
           </div>
 
           <div className="profile-page__info-group">
-            <label htmlFor="companionPreferences">Preferências de Companhia</label>
+            <label htmlFor="companionPreferences">
+              Preferências de Companhia
+            </label>
             <input
               type="text"
               id="companionPreferences"
@@ -120,10 +127,7 @@ const EditProfilePage = () => {
           </div>
         </div>
 
-        <button 
-          type="submit"
-          className="profile-page__edit-button"
-        >
+        <button type="submit" className="profile-page__edit-button">
           <FaSave /> Salvar Alterações
         </button>
       </Form>

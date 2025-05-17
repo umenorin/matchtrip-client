@@ -1,7 +1,7 @@
-import { Form, Link } from 'react-router-dom';
-import Button from '../../components/Button/Button';
-import Input from '../../components/Input/Input';
-import './RegisterPage.scss';
+import { Form, Link } from "react-router-dom";
+import Button from "../../components/Button/Button";
+import Input from "../../components/Input/Input";
+import "./RegisterPage.scss";
 
 export default function RegisterPage() {
   return (

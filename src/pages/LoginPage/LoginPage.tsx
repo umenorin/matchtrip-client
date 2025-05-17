@@ -1,8 +1,8 @@
-import './LoginPage.scss';
+import "./LoginPage.scss";
 
-import { Link, Form, useActionData } from 'react-router';
-import Input from '../../components/Input/Input';
-import Button from '../../components/Button/Button';
+import { Link, Form, useActionData } from "react-router";
+import Input from "../../components/Input/Input";
+import Button from "../../components/Button/Button";
 
 const LoginPage = () => {
   const actionData = useActionData();

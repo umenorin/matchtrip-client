@@ -1,9 +1,9 @@
 import { useState, useRef, useEffect } from "react";
-import { FaCamera} from "react-icons/fa";
+import { FaCamera } from "react-icons/fa";
 import Input from "../Input/Input";
 import Button from "../Button/Button";
-import { useContext } from 'react';
-import { AuthContext } from '../../context/AuthContext';
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
 import "./ModalRegister.scss";
 
 interface ModalRegisterProps {
@@ -16,18 +16,18 @@ const ModalRegister = ({ onClose, onLoginClick }: ModalRegisterProps) => {
   const { setUserPhoto } = useContext(AuthContext);
   const modalRef = useRef<HTMLDivElement>(null);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
-  
+
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    cpf: '',
-    birthDate: '',
-    country: 'BR',
-    gender: '',
-    password: '',
-    confirmPassword: '',
-    profilePhoto: null as File | null
+    name: "",
+    email: "",
+    phone: "",
+    cpf: "",
+    birthDate: "",
+    country: "BR",
+    gender: "",
+    password: "",
+    confirmPassword: "",
+    profilePhoto: null as File | null,
   });
 
   const countries = [
@@ -35,18 +35,19 @@ const ModalRegister = ({ onClose, onLoginClick }: ModalRegisterProps) => {
     { code: "US", name: "Estados Unidos" },
     { code: "PT", name: "Portugal" },
   ];
-  
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+  ) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
-      setFormData(prev => ({ ...prev, profilePhoto: file }));
-      
+      setFormData((prev) => ({ ...prev, profilePhoto: file }));
+
       const reader = new FileReader();
       reader.onloadend = () => {
         const photoUrl = reader.result as string;
@@ -60,7 +61,10 @@ const ModalRegister = ({ onClose, onLoginClick }: ModalRegisterProps) => {
   // Fechar ao clicar fora
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
+      if (
+        modalRef.current &&
+        !modalRef.current.contains(event.target as Node)
+      ) {
         onClose();
       }
     };
@@ -208,8 +212,8 @@ const ModalRegister = ({ onClose, onLoginClick }: ModalRegisterProps) => {
 
       <div className="modal-register__divider"></div>
 
-      <Button 
-        type="button" 
+      <Button
+        type="button"
         onClick={() => setStep(2)}
         className="modal-register__next-btn"
       >
@@ -219,10 +223,7 @@ const ModalRegister = ({ onClose, onLoginClick }: ModalRegisterProps) => {
       <div className="modal-register__footer">
         <p>
           Já tem uma conta?{" "}
-          <button
-            className="modal-register__login-link"
-            onClick={onLoginClick}
-          >
+          <button className="modal-register__login-link" onClick={onLoginClick}>
             Faça login
           </button>
         </p>
@@ -239,16 +240,16 @@ const ModalRegister = ({ onClose, onLoginClick }: ModalRegisterProps) => {
       <h2 className="modal-register__title">Foto de Perfil</h2>
       <div className="modal-register__photo-upload">
         <label className="modal-register__photo-label">
-          <input 
-            type="file" 
-            accept="image/*" 
-            onChange={handleFileChange} 
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleFileChange}
             className="modal-register__photo-input"
           />
           {previewImage ? (
-            <img 
-              src={previewImage} 
-              alt="Preview" 
+            <img
+              src={previewImage}
+              alt="Preview"
               className="modal-register__photo-preview"
             />
           ) : (
@@ -258,20 +259,13 @@ const ModalRegister = ({ onClose, onLoginClick }: ModalRegisterProps) => {
             </>
           )}
         </label>
-        
+
         <div className="modal-register__photo-actions">
-          <Button 
-            type="button"
-            variant="outline"
-            onClick={() => setStep(3)}
-          >
+          <Button type="button" variant="outline" onClick={() => setStep(3)}>
             Pular
           </Button>
-          <Button 
-            type="button"
-            onClick={() => setStep(3)}
-          >
-            Próximo 
+          <Button type="button" onClick={() => setStep(3)}>
+            Próximo
           </Button>
         </div>
       </div>
@@ -287,46 +281,56 @@ const ModalRegister = ({ onClose, onLoginClick }: ModalRegisterProps) => {
       <h2 className="modal-register__title">Confirmação</h2>
       <div className="modal-register__confirmation">
         <div className="modal-register__confirmation-details">
-          <p><strong>Nome:</strong> {formData.name}</p>
-          <p><strong>Email:</strong> {formData.email}</p>
-          <p><strong>CPF:</strong> {formData.cpf}</p>
-          <p><strong>País:</strong> {countries.find(c => c.code === formData.country)?.name}</p>
-          <p><strong>Gênero:</strong> {
-            formData.gender === 'male' ? 'Masculino' :
-            formData.gender === 'female' ? 'Feminino' :
-            formData.gender === 'other' ? 'Outro' : 'Prefiro não dizer'
-          }</p>
-          
+          <p>
+            <strong>Nome:</strong> {formData.name}
+          </p>
+          <p>
+            <strong>Email:</strong> {formData.email}
+          </p>
+          <p>
+            <strong>CPF:</strong> {formData.cpf}
+          </p>
+          <p>
+            <strong>País:</strong>{" "}
+            {countries.find((c) => c.code === formData.country)?.name}
+          </p>
+          <p>
+            <strong>Gênero:</strong>{" "}
+            {formData.gender === "male"
+              ? "Masculino"
+              : formData.gender === "female"
+                ? "Feminino"
+                : formData.gender === "other"
+                  ? "Outro"
+                  : "Prefiro não dizer"}
+          </p>
+
           {previewImage && (
             <div className="modal-register__confirmation-photo">
               <strong>Foto:</strong>
-              <img 
-                src={previewImage} 
-                alt="Preview" 
+              <img
+                src={previewImage}
+                alt="Preview"
                 className="modal-register__photo-preview-small"
               />
             </div>
           )}
         </div>
-        
+
         <div className="modal-register__confirmation-actions">
-          <Button 
-            type="button"
-            variant="outline"
-            onClick={() => setStep(2)}
-          >
+          <Button type="button" variant="outline" onClick={() => setStep(2)}>
             Voltar
           </Button>
-          <Button 
+          <Button
             type="button"
             onClick={() => {
               // Lógica de cadastro aqui
-              console.log('Dados para cadastro:', formData);
+              console.log("Dados para cadastro:", formData);
               onClose();
             }}
             className="modal-register__submit"
           >
-            Cadastrar 
+            Cadastrar
           </Button>
         </div>
       </div>

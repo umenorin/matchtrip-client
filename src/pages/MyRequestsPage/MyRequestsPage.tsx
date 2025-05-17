@@ -113,7 +113,7 @@ const mockTrips: Trip[] = [
 const MyRequestsPage = () => {
   const { user } = useAuth() ?? { user: { id: "1", name: "Usuário Teste" } };
   const [activeTab, setActiveTab] = useState<"ongoing" | "completed">(
-    "ongoing"
+    "ongoing",
   );
   const [selectedTrip, setSelectedTrip] = useState<Trip | null>(null);
   const [newMessage, setNewMessage] = useState("");
@@ -132,7 +132,7 @@ const MyRequestsPage = () => {
 
   const ongoingTrips = userTrips.filter((trip) => trip.status === "ongoing");
   const completedTrips = userTrips.filter(
-    (trip) => trip.status === "completed"
+    (trip) => trip.status === "completed",
   );
 
   const handleSendMessage = () => {
@@ -269,7 +269,7 @@ const MyRequestsPage = () => {
                   </button>
                 )}
               </div>
-            )
+            ),
           )}
         </div>
 
@@ -391,14 +391,14 @@ const MyRequestsPage = () => {
                     {tripRating === 0
                       ? "Selecione uma avaliação"
                       : tripRating === 1
-                      ? "Péssima"
-                      : tripRating === 2
-                      ? "Ruim"
-                      : tripRating === 3
-                      ? "Boa"
-                      : tripRating === 4
-                      ? "Muito boa"
-                      : "Excelente"}
+                        ? "Péssima"
+                        : tripRating === 2
+                          ? "Ruim"
+                          : tripRating === 3
+                            ? "Boa"
+                            : tripRating === 4
+                              ? "Muito boa"
+                              : "Excelente"}
                   </p>
                 </div>
 
