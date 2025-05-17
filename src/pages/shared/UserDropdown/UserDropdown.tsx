@@ -1,9 +1,9 @@
-import { useState, useRef, useEffect } from 'react';
-import { FaUserCircle } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom';
-import './UserDropdown.scss';
-import { useAuth } from '../../../context/AuthContext';
-import perfilNone from '../../../../public/perfilNone.png';
+import { useState, useRef, useEffect } from "react";
+import { FaUserCircle } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+import "./UserDropdown.scss";
+import { useAuth } from "../../../context/AuthContext";
+import Button from "../../../components/Button/Button";
 
 const UserDropdown = () => {
   const { user } = useAuth();
@@ -13,7 +13,7 @@ const UserDropdown = () => {
 
   const handleProfileClick = () => {
     setIsOpen(false);
-    navigate('/profile');
+    navigate("/profile");
   };
 
   useEffect(() => {
@@ -26,9 +26,9 @@ const UserDropdown = () => {
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
 
@@ -66,11 +66,12 @@ const UserDropdown = () => {
         </>
       ) : (
         <div className="perfil-none">
-          {/* <img className={'perfil-none__img'}
-            src= {perfilNone}
-            alt="Foto Perfil Vazio"
-          /> */}
-          <button>Logar</button>
+          <Button navigateTo="/login" type="link">
+            Logar
+          </Button>
+          <Button navigateTo="/register" type="link">
+            Registrar
+          </Button>
         </div>
       )}
     </div>
