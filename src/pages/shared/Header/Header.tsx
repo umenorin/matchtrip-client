@@ -1,26 +1,45 @@
-import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import logo from "../../../assets/logo.png";
 import Navbar from "../Navbar/Navbar";
+import Button from "../../../components/Button/Button";
 import "./Header.scss";
-import UserDropdown from "../UserDropdown/UserDropdown";
+
+function HeaderLogo() {
+  return (
+    <div className="header__logo-container">
+      <a href="/">
+        <img src={logo} alt="Logo" className="header__logo" />
+      </a>
+    </div>
+  );
+}
+
+function HeaderNavbar() {
+  return (
+    <div className="header__navbar">
+      <Navbar title="Aonde você quer ir?" />
+    </div>
+  );
+}
+
+function HeaderActions() {
+  return (
+    <div className="header__actions">
+      <Button type="link" navigateTo="/login">Entrar</Button>
+      <Button type="link" navigateTo="/register">Cadastrar</Button>
+    </div>
+  );
+}
 
 export default function Header() {
+  const location = useLocation();
+  const isHome = location.pathname === "/";
+
   return (
     <header className="header">
-      {/* Lado esquerdo - Logo */}
-      <div className="header__logo-container">
-        <Link to="/">
-          <img src={logo} alt="Logo" className="header__logo" />
-        </Link>
-      </div>
-      {/* Centro - Navbar */}
-      <div className="header__navbar">
-        <Navbar title="Aonde você quer ir?" />
-      </div>
-      {/* Lado direito - Ações */}
-      <div className="header__actions">
-        <UserDropdown />
-      </div>
+      <HeaderLogo />
+      {isHome && <HeaderNavbar />}
+      <HeaderActions />
     </header>
   );
 }

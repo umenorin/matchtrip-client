@@ -61,7 +61,7 @@ export default function RegisterPage() {
               <option value="prefer-not-to-say">Prefiro não dizer</option>
             </select>
           </div>
-          <Button type="submit">Cadastrar</Button>
+          <Button type="link" navigateTo="/">Cadastrar</Button>
         </Form>
         <div className="register-page__link">
           <p>
