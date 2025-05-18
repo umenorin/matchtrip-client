@@ -1,0 +1,49 @@
+.group-card {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  margin-bottom: 2rem;
+
+  &__img {
+    width: 130px;
+    height: 130px;
+    border-radius: 1.2rem;
+    object-fit: cover;
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+
+    h3 {
+      margin: 0;
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+
+    p {
+      margin: 0;
+      color: #222;
+      font-size: 1rem;
+    }
+  }
+
+  &__meta {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    color: #00bcd4;
+    font-weight: 600;
+    margin-top: 0.5rem;
+    font-size: 1rem;
+
+    .group-card__users {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      color: #00bcd4;
+      font-weight: 700;
+    }
+  }
+}

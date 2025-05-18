@@ -1,0 +1,39 @@
+.schedule {
+  margin-top: 2rem;
+
+  h4 {
+    margin-bottom: 1.2rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+  }
+
+  &__items {
+    display: flex;
+    gap: 2.5rem;
+    justify-content: space-between;
+  }
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 1rem;
+    color: #222;
+    gap: 0.5rem;
+    max-width: 200px;
+    text-align: center;
+
+    svg {
+      margin-bottom: 0.3rem;
+      font-size: 2rem;
+    }
+
+    &:nth-child(1) span:last-child,
+    &:nth-child(2) span:last-child,
+    &:nth-child(3) span:last-child {
+      color: #00bcd4;
+      font-weight: 600;
+      margin-top: 0.3rem;
+    }
+  }
+}
