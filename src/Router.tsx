@@ -11,6 +11,7 @@ import { registerPageAction } from "./action/registerPageAction";
 import { editProfileAction } from "./pages/EditProfilePage/editProfileAction";
 import MyRequestsPage from "./pages/MyRequestsPage/MyRequestsPage";
 import Layout from "./pages/shared/Layout/Layout";
+import Match from "./pages/MatchPage/Match";
 
 const router = createBrowserRouter([
   {
@@ -49,6 +50,10 @@ const router = createBrowserRouter([
         path: "/my-requests",
         element: <MyRequestsPage />,
         // loader: protectedLoader (se quiser proteger a rota)
+      },
+      {
+        path: "/match",
+        element: <Match />,
       },
     ],
   },
