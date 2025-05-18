@@ -2,8 +2,8 @@ import { useState, useRef, useEffect } from "react";
 import { FaUserCircle } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import "./UserDropdown.scss";
-import { useAuth } from "../../../context/AuthContext";
-import Button from "../../../components/Button/Button";
+import { useAuth } from "../../../app/features/services/context/AuthContext";
+import Button from "../../../shared/Button/Button";
 
 const UserDropdown = () => {
   const { user } = useAuth();

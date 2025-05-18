@@ -13,6 +13,6 @@ if (root) {
   ReactDOM.createRoot(root).render(
     <StrictMode>
       <RouterProvider router={router} />
-    </StrictMode>,
+    </StrictMode>
   );
 }

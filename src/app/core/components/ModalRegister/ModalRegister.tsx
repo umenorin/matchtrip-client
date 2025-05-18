@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { FaCamera } from "react-icons/fa";
-import Input from "../Input/Input";
-import Button from "../Button/Button";
+import Input from "../../shared/Input/Input";
+import Button from "../../shared/Button/Button";
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import "./ModalRegister.scss";
@@ -37,7 +37,7 @@ const ModalRegister = ({ onClose, onLoginClick }: ModalRegisterProps) => {
   ];
 
   const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -299,10 +299,10 @@ const ModalRegister = ({ onClose, onLoginClick }: ModalRegisterProps) => {
             {formData.gender === "male"
               ? "Masculino"
               : formData.gender === "female"
-                ? "Feminino"
-                : formData.gender === "other"
-                  ? "Outro"
-                  : "Prefiro não dizer"}
+              ? "Feminino"
+              : formData.gender === "other"
+              ? "Outro"
+              : "Prefiro não dizer"}
           </p>
 
           {previewImage && (

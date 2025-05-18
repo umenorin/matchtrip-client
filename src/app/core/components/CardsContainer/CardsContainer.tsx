@@ -1,9 +1,9 @@
-import image51 from "../../assets/image51.png";
-import image52 from "../../assets/image52.png";
-import image53 from "../../assets/image53.png";
-import image54 from "../../assets/image54.png";
-import fotoEnzo from "../../assets/fotoEnzo.png";
-import fotoRuan from "../../assets/fotoRuan.png";
+import image51 from "../../../../assets/image51.png";
+import image52 from "../../../../assets/image52.png";
+import image53 from "../../../../assets/image53.png";
+import image54 from "../../../../assets/image54.png";
+import fotoEnzo from "../../../../assets/fotoEnzo.png";
+import fotoRuan from "../../../../assets/fotoRuan.png";
 import Card from "./Card/Card";
 
 import "./CardsContainer.scss";

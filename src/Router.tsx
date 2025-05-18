@@ -1,19 +1,19 @@
-import { createBrowserRouter } from 'react-router-dom';
-import ErrorPage from './pages/ErrorPage/ErrorPage';
-import HomePage from './pages/HomePage/HomePage';
-import LoginPage from './pages/LoginPage/LoginPage';
-import RegisterPage from './pages/RegisterPage/RegisterPage';
-import ProfilePage from './pages/ProfilePage/ProfilePage';
-import { loginPageAction } from './action/loginPageAction';
-import { registerPageAction } from './action/registerPageAction';
-import MyRequestsPage from './pages/MyRequestsPage/MyRequestsPage';
-import Layout from './pages/shared/Layout/Layout';
-import Match from './pages/MatchPage/Match';
-import { matchPageAction } from './action/matchPageAction';
+import { createBrowserRouter } from "react-router-dom";
+import ErrorPage from "./app/features/ErrorPage/ErrorPage";
+import HomePage from "./app/features/HomePage/HomePage";
+import LoginPage from "./app/features/LoginPage/LoginPage";
+import RegisterPage from "./app/features/RegisterPage/RegisterPage";
+import ProfilePage from "./app/features/ProfilePage/ProfilePage";
+import { loginPageAction } from "./app/features/services/action/loginPageAction";
+import { registerPageAction } from "./app/features/services/action/registerPageAction";
+import MyRequestsPage from "./app/features/MyRequestsPage/MyRequestsPage";
+import Match from "./app/features/MatchPage/Match";
+import { matchPageAction } from "./app/features/services/action/matchPageAction";
+import Layout from "./app/core/layout/Layout/Layout";
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: "/",
     element: <Layout />,
     errorElement: <ErrorPage />,
     children: [
@@ -23,17 +23,17 @@ const router = createBrowserRouter([
         // loader: homePageLoader
       },
       {
-        path: '/login',
+        path: "/login",
         element: <LoginPage />,
         action: loginPageAction,
       },
       {
-        path: '/register',
+        path: "/register",
         element: <RegisterPage />,
         action: registerPageAction,
       },
       {
-        path: '/profile',
+        path: "/profile",
         element: <ProfilePage />,
         // Caso precise proteger a rota:
         // loader: protectedProfileLoader
@@ -45,12 +45,12 @@ const router = createBrowserRouter([
       //   // loader: protectedProfileLoader
       // },
       {
-        path: '/my-requests',
+        path: "/my-requests",
         element: <MyRequestsPage />,
         // loader: protectedLoader (se quiser proteger a rota)
       },
       {
-        path: '/match',
+        path: "/match",
         element: <Match />,
         action: matchPageAction,
       },

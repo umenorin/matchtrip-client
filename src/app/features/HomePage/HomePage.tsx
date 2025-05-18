@@ -1,6 +1,6 @@
+import CardsContainer from "../../core/components/CardsContainer/CardsContainer";
+import CategoryFilter from "../../core/components/CategoryFilter/CategoryFilter";
 import "./HomePage.scss";
-import CategoryFilter from "../../components/CategoryFilter/CategoryFilter";
-import CardsContainer from "../../components/CardsContainer/CardsContainer";
 
 export default function HomePage() {
   return (

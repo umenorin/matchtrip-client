@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Form, useActionData } from "react-router-dom";
-import Input from "../Input/Input";
-import Button from "../Button/Button";
+import Input from "../../shared/Input/Input";
+import Button from "../../shared/Button/Button";
 import "./ModalLogin.scss";
 
 interface ModalLoginProps {
@@ -45,7 +45,9 @@ const ModalLogin = ({ onClose, onRegisterClick }: ModalLoginProps) => {
               name="email"
               type="email"
               value={email}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setEmail(e.target.value)
+              }
               className="modal-login__input"
             />
             {actionData?.errors?.email && (
@@ -59,7 +61,9 @@ const ModalLogin = ({ onClose, onRegisterClick }: ModalLoginProps) => {
               name="password"
               type="password"
               value={password}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setPassword(e.target.value)
+              }
               className="modal-login__input"
             />
             {actionData?.errors?.password && (

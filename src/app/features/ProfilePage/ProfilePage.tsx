@@ -1,8 +1,8 @@
-import { useAuth } from "../../context/AuthContext";
 import { FaEdit, FaSuitcase, FaUserCircle } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import "./ProfilePage.scss";
 import { useState, useRef, useEffect } from "react";
+import { useAuth } from "../services/context/AuthContext";
 
 const ProfilePage = () => {
   const { user } = useAuth();
@@ -20,7 +20,7 @@ const ProfilePage = () => {
   };
 
   const [travelPreferences, setTravelPreferences] = useState<string[]>(
-    userData.travelPreferences,
+    userData.travelPreferences
   );
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -56,7 +56,7 @@ const ProfilePage = () => {
   const [birthDate, setBirthDate] = useState(userData.birthDate);
 
   const [budget, setBudget] = useState<string[]>(
-    [userData.budget], // ou [] se quiser começar vazio
+    [userData.budget] // ou [] se quiser começar vazio
   );
   const [budgetDropdownOpen, setBudgetDropdownOpen] = useState(false);
   const budgetDropdownRef = useRef<HTMLDivElement>(null);
@@ -64,7 +64,7 @@ const ProfilePage = () => {
   const [companions, setCompanions] = useState<string[]>(
     userData.companionPreferences
       ? userData.companionPreferences.split(/, ?/)
-      : [],
+      : []
   );
   const [companionsDropdownOpen, setCompanionsDropdownOpen] = useState(false);
   const companionsDropdownRef = useRef<HTMLDivElement>(null);
@@ -110,7 +110,7 @@ const ProfilePage = () => {
     setTravelPreferences((prev) =>
       prev.includes(option)
         ? prev.filter((item) => item !== option)
-        : [...prev, option],
+        : [...prev, option]
     );
   }
 
@@ -119,7 +119,7 @@ const ProfilePage = () => {
     setBudget((prev) =>
       prev.includes(option)
         ? prev.filter((item) => item !== option)
-        : [...prev, option],
+        : [...prev, option]
     );
   }
 
@@ -128,14 +128,13 @@ const ProfilePage = () => {
     setCompanions((prev) =>
       prev.includes(option)
         ? prev.filter((item) => item !== option)
-        : [...prev, option],
+        : [...prev, option]
     );
   }
 
   return (
     <div className="profile-page">
       <header className="profile-page__header">
-
         <h1>Meu Perfil</h1>
       </header>
 
@@ -204,7 +203,7 @@ const ProfilePage = () => {
                         onClick={(e) => {
                           e.stopPropagation();
                           setTravelPreferences((prev) =>
-                            prev.filter((item) => item !== pref),
+                            prev.filter((item) => item !== pref)
                           );
                         }}
                       >
@@ -222,7 +221,9 @@ const ProfilePage = () => {
                   {travelOptions.map((option) => (
                     <div
                       key={option}
-                      className={`profile-page__dropdown-item${travelPreferences.includes(option) ? " selected" : ""}`}
+                      className={`profile-page__dropdown-item${
+                        travelPreferences.includes(option) ? " selected" : ""
+                      }`}
                       onClick={() => toggleOption(option)}
                     >
                       <input
@@ -262,7 +263,7 @@ const ProfilePage = () => {
                         onClick={(e) => {
                           e.stopPropagation();
                           setBudget((prev) =>
-                            prev.filter((item) => item !== option),
+                            prev.filter((item) => item !== option)
                           );
                         }}
                       >
@@ -280,7 +281,9 @@ const ProfilePage = () => {
                   {budgetOptions.map((option) => (
                     <div
                       key={option}
-                      className={`profile-page__dropdown-item${budget.includes(option) ? " selected" : ""}`}
+                      className={`profile-page__dropdown-item${
+                        budget.includes(option) ? " selected" : ""
+                      }`}
                       onClick={() => toggleBudget(option)}
                     >
                       <input
@@ -320,7 +323,7 @@ const ProfilePage = () => {
                         onClick={(e) => {
                           e.stopPropagation();
                           setCompanions((prev) =>
-                            prev.filter((item) => item !== option),
+                            prev.filter((item) => item !== option)
                           );
                         }}
                       >
@@ -338,7 +341,9 @@ const ProfilePage = () => {
                   {companionOptions.map((option) => (
                     <div
                       key={option}
-                      className={`profile-page__dropdown-item${companions.includes(option) ? " selected" : ""}`}
+                      className={`profile-page__dropdown-item${
+                        companions.includes(option) ? " selected" : ""
+                      }`}
                       onClick={() => toggleCompanion(option)}
                     >
                       <input
@@ -361,13 +366,12 @@ const ProfilePage = () => {
             <FaEdit /> Salvar alteração
           </button>
 
-           
           <button
             className="profile-page__edit-button"
             onClick={() => navigate("/profile")}
           >
             <FaEdit /> Descartar Alteração
-          </button>   
+          </button>
 
           <button
             className="profile-page__trips-button"

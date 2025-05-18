@@ -6,8 +6,8 @@ import {
   FaUsers,
   FaMoneyBillWave,
 } from "react-icons/fa";
-import Button from "../Button/Button";
-import Input from "../Input/Input";
+import Button from "../../shared/Button/Button";
+import Input from "../../shared/Input/Input";
 import "./CreateTripModal.scss";
 
 interface CreateTripModalProps {
@@ -40,7 +40,7 @@ const CreateTripModal = ({ onClose, onSubmit }: CreateTripModalProps | any) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));

@@ -1,8 +1,8 @@
 import { useLocation } from "react-router-dom";
-import logo from "../../../assets/logo.png";
-import Navbar from "../Navbar/Navbar";
-import Button from "../../../components/Button/Button";
+import logo from "../../../../assets/logo.png";
+import Navbar from "./Navbar/Navbar";
 import "./Header.scss";
+import Button from "../../shared/Button/Button";
 
 function HeaderLogo() {
   return (
@@ -25,8 +25,12 @@ function HeaderNavbar() {
 function HeaderActions() {
   return (
     <div className="header__actions">
-      <Button type="link" navigateTo="/login">Entrar</Button>
-      <Button type="link" navigateTo="/register">Cadastrar</Button>
+      <Button type="link" navigateTo="/login">
+        Entrar
+      </Button>
+      <Button type="link" navigateTo="/register">
+        Cadastrar
+      </Button>
     </div>
   );
 }

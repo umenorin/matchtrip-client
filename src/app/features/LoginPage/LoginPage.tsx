@@ -1,16 +1,16 @@
 import "./LoginPage.scss";
 import { Link, Form, useActionData } from "react-router";
-import Input from "../../components/Input/Input";
-import Button from "../../components/Button/Button";
-import Loading from "../../components/Loading/Loading";
 import { useState } from "react";
+import Loading from "../../core/components/Loading/Loading";
+import Input from "../../core/shared/Input/Input";
+import Button from "../../core/shared/Button/Button";
 
 const LoginPage = () => {
   const actionData = useActionData();
-  const [loading, setLoading] = useState(false);
+  const [loading, _setLoading] = useState(false);
 
-  function handleSubmit(e) {
-    setLoading(true);
+  function handleSubmit() {
+    _setLoading(true);
     // O Form do react-router vai continuar o submit normalmente
   }
 
@@ -23,14 +23,22 @@ const LoginPage = () => {
         {loading ? (
           <Loading />
         ) : (
-          <Form className="login-page__form" method="post" onSubmit={handleSubmit}>
+          <Form
+            className="login-page__form"
+            method="post"
+            onSubmit={handleSubmit}
+          >
             <Input name="email" type="email" placeholder="Email" />
             {actionData?.errors?.email && <p>{actionData.errors.email}</p>}
 
             <Input name="password" type="password" placeholder="Senha" />
-            {actionData?.errors?.password && <p>{actionData.errors.password}</p>}
+            {actionData?.errors?.password && (
+              <p>{actionData.errors.password}</p>
+            )}
 
-            <Button type="submit">Entrar</Button>
+            <Button navigateTo={undefined} type="submit">
+              Entrar
+            </Button>
           </Form>
         )}
       </div>

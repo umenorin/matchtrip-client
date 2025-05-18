@@ -1,7 +1,7 @@
 import { Form, Link } from "react-router-dom";
-import Button from "../../components/Button/Button";
-import Input from "../../components/Input/Input";
 import "./RegisterPage.scss";
+import Input from "../../core/shared/Input/Input";
+import Button from "../../core/shared/Button/Button";
 
 export default function RegisterPage() {
   return (
@@ -61,7 +61,9 @@ export default function RegisterPage() {
               <option value="prefer-not-to-say">Prefiro não dizer</option>
             </select>
           </div>
-          <Button type="link" navigateTo="/">Cadastrar</Button>
+          <Button type="link" navigateTo="/">
+            Cadastrar
+          </Button>
         </Form>
         <div className="register-page__link">
           <p>
