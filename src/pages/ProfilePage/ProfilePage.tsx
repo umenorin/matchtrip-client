@@ -135,12 +135,6 @@ const ProfilePage = () => {
   return (
     <div className="profile-page">
       <header className="profile-page__header">
-        <button
-          className="profile-page__back-button"
-          onClick={() => navigate(-1)}
-        >
-          <FaArrowLeft />
-        </button>
         <h1>Meu Perfil</h1>
       </header>
 
