@@ -45,7 +45,7 @@ const ModalLogin = ({ onClose, onRegisterClick }: ModalLoginProps) => {
               name="email"
               type="email"
               value={email}
-              onChange={(e: any) => setEmail(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
               className="modal-login__input"
             />
             {actionData?.errors?.email && (
@@ -59,7 +59,7 @@ const ModalLogin = ({ onClose, onRegisterClick }: ModalLoginProps) => {
               name="password"
               type="password"
               value={password}
-              onChange={(e: any) => setPassword(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
               className="modal-login__input"
             />
             {actionData?.errors?.password && (
@@ -78,6 +78,7 @@ const ModalLogin = ({ onClose, onRegisterClick }: ModalLoginProps) => {
           <p>
             Não é membro?{" "}
             <button
+              type="button"
               className="modal-login__register-link"
               onClick={onRegisterClick}
             >
