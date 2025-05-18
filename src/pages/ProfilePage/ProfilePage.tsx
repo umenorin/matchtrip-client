@@ -1,5 +1,5 @@
 import { useAuth } from "../../context/AuthContext";
-import { FaArrowLeft, FaEdit, FaSuitcase, FaUserCircle } from "react-icons/fa";
+import { FaEdit, FaSuitcase, FaUserCircle } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import "./ProfilePage.scss";
 import { useState, useRef, useEffect } from "react";
@@ -135,6 +135,7 @@ const ProfilePage = () => {
   return (
     <div className="profile-page">
       <header className="profile-page__header">
+
         <h1>Meu Perfil</h1>
       </header>
 
@@ -355,10 +356,18 @@ const ProfilePage = () => {
 
           <button
             className="profile-page__edit-button"
-            onClick={() => navigate("/profile/edit")}
+            onClick={() => navigate("/profile")}
           >
-            <FaEdit /> Editar Perfil
+            <FaEdit /> Salvar alteração
           </button>
+
+           
+          <button
+            className="profile-page__edit-button"
+            onClick={() => navigate("/profile")}
+          >
+            <FaEdit /> Descartar Alteração
+          </button>   
 
           <button
             className="profile-page__trips-button"

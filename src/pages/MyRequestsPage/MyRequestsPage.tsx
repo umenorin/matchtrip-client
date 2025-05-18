@@ -200,12 +200,6 @@ const MyRequestsPage = () => {
   return (
     <div className="my-requests-page">
       <header className="my-requests-page__header">
-        <button
-          className="my-requests-page__back-button"
-          onClick={() => window.history.back()}
-        >
-          <FaArrowLeft />
-        </button>
         <h1>Minhas Viagens</h1>
       </header>
 

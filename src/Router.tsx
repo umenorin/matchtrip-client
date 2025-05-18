@@ -39,12 +39,12 @@ const router = createBrowserRouter([
         // Caso precise proteger a rota:
         // loader: protectedProfileLoader
       },
-      {
-        path: "/profile/edit",
-        element: <EditProfilePage />,
-        action: editProfileAction,
-        // loader: protectedProfileLoader
-      },
+      // {
+      //   path: "/profile/edit",
+      //   element: <EditProfilePage />,
+      //   action: editProfileAction,
+      //   // loader: protectedProfileLoader
+      // },
       {
         path: "/my-requests",
         element: <MyRequestsPage />,
