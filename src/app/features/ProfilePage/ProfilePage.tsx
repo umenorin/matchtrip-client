@@ -361,14 +361,14 @@ const ProfilePage = () => {
 
           <div className="profile-page__buttons">
             <button
-              className="profile-page__edit-button"
+              className="profile-page__edit-button profile-page__edit-button--save"
               onClick={() => navigate('/profile')}
             >
               <FaEdit /> Salvar alteração
             </button>
 
             <button
-              className="profile-page__edit-button"
+              className="profile-page__edit-button profile-page__edit-button--discard"
               onClick={() => navigate('/profile')}
             >
               <FaEdit /> Descartar Alteração

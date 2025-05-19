@@ -36,6 +36,46 @@
     margin-top: 1.5rem;
   }
 
+  .profile-page__edit-button {
+    width: 100%;
+    max-width: 300px;
+    margin: 0.5rem 0 0 0;
+    padding: 0.8rem 1.2rem;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    justify-content: center;
+    transition:
+      background 0.2s,
+      color 0.2s;
+    background: #0098b6;
+    color: #fff;
+
+    &:hover {
+      background: #00718a;
+    }
+
+    &--discard {
+      background: #e0f7fa;
+      color: #0098b6;
+
+      &:hover {
+        background: #b3e0ea;
+        color: #00718a;
+      }
+    }
+
+    &--save {
+      // Se quiser customizar o botão de salvar, adicione aqui
+      // Por padrão, herda o estilo base
+    }
+  }
+
   &__back-button {
     background: none;
     border: none;
