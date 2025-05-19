@@ -372,13 +372,6 @@ const ProfilePage = () => {
           >
             <FaEdit /> Descartar Alteração
           </button>
-
-          <button
-            className="profile-page__trips-button"
-            onClick={() => navigate("/my-requests")}
-          >
-            <FaSuitcase /> Minhas Viagens
-          </button>
         </div>
       </div>
     </div>
