@@ -1,8 +1,8 @@
-import { FaEdit, FaSuitcase, FaUserCircle } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
-import "./ProfilePage.scss";
-import { useState, useRef, useEffect } from "react";
-import { useAuth } from "../services/context/AuthContext";
+import { FaEdit, FaSuitcase, FaUserCircle } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
+import './ProfilePage.scss';
+import { useState, useRef, useEffect } from 'react';
+import { useAuth } from '../services/context/AuthContext';
 
 const ProfilePage = () => {
   const { user } = useAuth();
@@ -10,13 +10,13 @@ const ProfilePage = () => {
 
   // Dados mockados (substitua pelos dados reais do usuário)
   const userData = {
-    name: user?.name || "Usuário",
-    photo: user?.photo || "",
-    bio: "Apaixonado por viagens e aventuras ao ar livre!",
-    birthDate: "15/03/1990",
-    travelPreferences: ["Praia", "Montanha", "Aventura"],
-    budget: "R$ 2.000 - R$ 5.000",
-    companionPreferences: "Casais ou pequenos grupos",
+    name: user?.name || 'Usuário',
+    photo: user?.photo || '',
+    bio: 'Apaixonado por viagens e aventuras ao ar livre!',
+    birthDate: '15/03/1990',
+    travelPreferences: ['Praia', 'Montanha', 'Aventura'],
+    budget: 'R$ 2.000 - R$ 5.000',
+    companionPreferences: 'Casais ou pequenos grupos',
   };
 
   const [travelPreferences, setTravelPreferences] = useState<string[]>(
@@ -26,29 +26,29 @@ const ProfilePage = () => {
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const travelOptions = [
-    "Praia",
-    "Montanha",
-    "Aventura",
-    "Cultura",
-    "Gastronomia",
-    "Ecoturismo",
+    'Praia',
+    'Montanha',
+    'Aventura',
+    'Cultura',
+    'Gastronomia',
+    'Ecoturismo',
   ];
 
   const budgetOptions = [
-    "R$ 0 - R$ 1.000",
-    "R$ 1.000 - R$ 2.000",
-    "R$ 2.000 - R$ 5.000",
-    "R$ 5.000 - R$ 10.000",
-    "Acima de R$ 10.000",
+    'R$ 0 - R$ 1.000',
+    'R$ 1.000 - R$ 2.000',
+    'R$ 2.000 - R$ 5.000',
+    'R$ 5.000 - R$ 10.000',
+    'Acima de R$ 10.000',
   ];
 
   const companionOptions = [
-    "Casais",
-    "Pequenos grupos",
-    "Família",
-    "Sozinho",
-    "Amigos",
-    "Pets",
+    'Casais',
+    'Pequenos grupos',
+    'Família',
+    'Sozinho',
+    'Amigos',
+    'Pets',
   ];
 
   // Estados para os inputs
@@ -90,15 +90,15 @@ const ProfilePage = () => {
         setCompanionsDropdownOpen(false);
       }
     }
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
   useEffect(() => {
     if (companionsDropdownOpen && companionsDropdownRef.current) {
       companionsDropdownRef.current.scrollIntoView({
-        behavior: "smooth",
-        block: "nearest",
+        behavior: 'smooth',
+        block: 'nearest',
       });
     }
   }, [companionsDropdownOpen]);
@@ -213,7 +213,7 @@ const ProfilePage = () => {
                   ))
                 )}
                 <span className="profile-page__dropdown-arrow">
-                  {dropdownOpen ? "▲" : "▼"}
+                  {dropdownOpen ? '▲' : '▼'}
                 </span>
               </div>
               {dropdownOpen && (
@@ -222,7 +222,7 @@ const ProfilePage = () => {
                     <div
                       key={option}
                       className={`profile-page__dropdown-item${
-                        travelPreferences.includes(option) ? " selected" : ""
+                        travelPreferences.includes(option) ? ' selected' : ''
                       }`}
                       onClick={() => toggleOption(option)}
                     >
@@ -273,7 +273,7 @@ const ProfilePage = () => {
                   ))
                 )}
                 <span className="profile-page__dropdown-arrow">
-                  {budgetDropdownOpen ? "▲" : "▼"}
+                  {budgetDropdownOpen ? '▲' : '▼'}
                 </span>
               </div>
               {budgetDropdownOpen && (
@@ -282,7 +282,7 @@ const ProfilePage = () => {
                     <div
                       key={option}
                       className={`profile-page__dropdown-item${
-                        budget.includes(option) ? " selected" : ""
+                        budget.includes(option) ? ' selected' : ''
                       }`}
                       onClick={() => toggleBudget(option)}
                     >
@@ -333,7 +333,7 @@ const ProfilePage = () => {
                   ))
                 )}
                 <span className="profile-page__dropdown-arrow">
-                  {companionsDropdownOpen ? "▲" : "▼"}
+                  {companionsDropdownOpen ? '▲' : '▼'}
                 </span>
               </div>
               {companionsDropdownOpen && (
@@ -342,7 +342,7 @@ const ProfilePage = () => {
                     <div
                       key={option}
                       className={`profile-page__dropdown-item${
-                        companions.includes(option) ? " selected" : ""
+                        companions.includes(option) ? ' selected' : ''
                       }`}
                       onClick={() => toggleCompanion(option)}
                     >
@@ -359,19 +359,21 @@ const ProfilePage = () => {
             </div>
           </div>
 
-          <button
-            className="profile-page__edit-button"
-            onClick={() => navigate("/profile")}
-          >
-            <FaEdit /> Salvar alteração
-          </button>
+          <div className="profile-page__buttons">
+            <button
+              className="profile-page__edit-button"
+              onClick={() => navigate('/profile')}
+            >
+              <FaEdit /> Salvar alteração
+            </button>
 
-          <button
-            className="profile-page__edit-button"
-            onClick={() => navigate("/profile")}
-          >
-            <FaEdit /> Descartar Alteração
-          </button>
+            <button
+              className="profile-page__edit-button"
+              onClick={() => navigate('/profile')}
+            >
+              <FaEdit /> Descartar Alteração
+            </button>
+          </div>
         </div>
       </div>
     </div>

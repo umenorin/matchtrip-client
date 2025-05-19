@@ -27,6 +27,15 @@
     }
   }
 
+  .profile-page__buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.7rem;
+    width: 100%;
+    margin-top: 1.5rem;
+  }
+
   &__back-button {
     background: none;
     border: none;
@@ -271,7 +280,6 @@
 
   // Responsividade para telas menores
   @media (max-width: 500px) {
-
     &__header,
     &__content {
       max-width: 98vw;
