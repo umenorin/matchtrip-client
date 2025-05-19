@@ -1,4 +1,4 @@
-import { FaEdit, FaSuitcase, FaUserCircle } from 'react-icons/fa';
+import { FaEdit, FaUserCircle } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import './ProfilePage.scss';
 import { useState, useRef, useEffect } from 'react';
@@ -50,6 +50,11 @@ const ProfilePage = () => {
     'Amigos',
     'Pets',
   ];
+
+  // Ref para o input de foto
+  const [photo] = useState(userData.photo);
+
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Estados para os inputs
   const [bio, setBio] = useState(userData.bio);
@@ -103,7 +108,25 @@ const ProfilePage = () => {
     }
   }, [companionsDropdownOpen]);
 
-  // Remove unused toggleItem function
+  // File input for photo upload
+  function handlePhotoClick() {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  }
+
+  // Handle photo change (dummy implementation)
+  function handlePhotoChange(event: React.ChangeEvent<HTMLInputElement>) {
+    // You can implement photo upload logic here if needed
+    // For now, just log the file
+    if (event.target.files && event.target.files[0]) {
+      // Example: show preview or upload
+      // const file = event.target.files[0];
+      // const reader = new FileReader();
+      // reader.onload = (e) => setPhoto(e.target?.result as string);
+      // reader.readAsDataURL(file);
+    }
+  }
 
   // Toggle travel preference option
   function toggleOption(option: string) {
@@ -136,14 +159,20 @@ const ProfilePage = () => {
     <div className="profile-page">
       <header className="profile-page__header">
         <h1>Meu Perfil</h1>
+    
       </header>
 
       <div className="profile-page__content">
         <div className="profile-page__photo-section">
-          <div className="profile-page__photo-container">
-            {userData.photo ? (
+          <div
+            className="profile-page__photo-container"
+            onClick={handlePhotoClick}
+            style={{ cursor: 'pointer' }}
+            title="Clique para alterar a foto"
+          >
+            {photo ? (
               <img
-                src={userData.photo}
+                src={photo}
                 alt={userData.name}
                 className="profile-page__photo"
               />
@@ -152,6 +181,13 @@ const ProfilePage = () => {
                 <FaUserCircle />
               </div>
             )}
+            <input
+              type="file"
+              accept="image/*"
+              ref={fileInputRef}
+              style={{ display: 'none' }}
+              onChange={handlePhotoChange}
+            />
           </div>
           <h2 className="profile-page__name">{userData.name}</h2>
         </div>
