@@ -7,6 +7,8 @@ import ModalMatchConfirm from '../../core/components/ModalMatchConfirm/ModalMatc
 import MatchConfirm from '../../core/components/MatchConfirm/MatchConfirm';
 import './Match.scss';
 
+import { useParams } from "react-router-dom";
+
 export default function Match() {
   const [showConfirm, setShowConfirm] = useState(false);
 

@@ -5,7 +5,7 @@ import image54 from "../../../../assets/image54.png";
 import fotoEnzo from "../../../../assets/fotoEnzo.png";
 import fotoRuan from "../../../../assets/fotoRuan.png";
 import Card from "./Card/Card";
-
+import { useNavigate } from "react-router-dom";
 import "./CardsContainer.scss";
 
 interface TripData {
@@ -23,7 +23,10 @@ interface TripData {
   transport?: string;
 }
 
+
 export default function CardsContainer() {
+  const navigate = useNavigate();
+
   const trips: TripData[] = [
     {
       imageSrc: image51,
@@ -75,19 +78,22 @@ export default function CardsContainer() {
   ];
 
   return (
-    <>
-      <section className="cards-container">
-        {trips.map((trip, index) => (
+    <section className="cards-container">
+      {trips.map((trip, index) => (
+        <div
+          key={index}
+          onClick={() => navigate("/match")}
+          style={{ cursor: "pointer" }}
+        >
           <Card
-            key={index}
             imageSrc={trip.imageSrc}
             title={trip.title}
             location={trip.location}
             date={trip.date}
             status={`${trip.participants?.length || 0}/${trip.maxParticipants}`}
           />
-        ))}
-      </section>
-    </>
+        </div>
+      ))}
+    </section>
   );
 }
