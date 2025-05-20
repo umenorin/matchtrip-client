@@ -10,6 +10,7 @@ import MyRequestsPage from "./app/features/MyRequestsPage/MyRequestsPage";
 import Match from "./app/features/MatchPage/Match";
 import { matchPageAction } from "./app/features/services/action/matchPageAction";
 import Layout from "./app/core/layout/Layout/Layout";
+import CreateTripModal from "./app/core/components/CreateTripModal/CreateTripModal";
 
 const router = createBrowserRouter([
   {
@@ -53,6 +54,12 @@ const router = createBrowserRouter([
         path: "/match",
         element: <Match />,
         action: matchPageAction,
+      },
+
+      {
+        path: "/create-trip",
+        element: <CreateTripModal />,
+  
       },
     ],
   },

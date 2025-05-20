@@ -6,7 +6,6 @@ import MatchActions from '../../core/components/MatchActions/MatchActions';
 import ModalMatchConfirm from '../../core/components/ModalMatchConfirm/ModalMatchConfirm';
 import MatchConfirm from '../../core/components/MatchConfirm/MatchConfirm';
 import './Match.scss';
-
 import { useParams } from "react-router-dom";
 
 export default function Match() {
