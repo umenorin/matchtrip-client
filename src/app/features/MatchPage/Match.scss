@@ -3,27 +3,47 @@
   flex-direction: column;
   align-items: center;
   min-height: 100vh;
+  min-width: 100vw;
   background: #fff;
+  padding-bottom: 32px;
 
-  &__content {
+.match-page__group {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 100vw;
-    min-height: 100vh;
-    padding: 2rem 0;
-    background: #f6fafd;
+    width: 100%;
+    max-width: 1100px;
+    margin-bottom: 2rem;
+  }
+.match-page__members {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 1100px;
+    margin-bottom: 2rem;
   }
 
-  &__card {
+  &__body {
+    min-height: 100vh;
+    min-width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
     background: #fff;
+    padding-bottom: 32px;
+  }
+
+ &__card {
+    background: #fafbfc;
     border-radius: 1.5rem;
-    box-shadow: 0 0 16px 0 rgba(0,0,0,0.08);
+    box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.08);
     padding: 2.5rem 2rem 1rem 2rem;
-    margin: 2rem 0 0 0;
-    max-width: 1200px;
-    width: 95vw;
+    margin: 64px 0 0 0;
+    width: 80%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -32,24 +52,39 @@
   &__container {
     display: flex;
     gap: 2.5rem;
-    margin-bottom: 2rem;
     width: 100%;
     max-width: 1100px;
     justify-content: center;
+    align-items: stretch; // faz os filhos terem a mesma altura
   }
 
-  &__group, &__members {
+  &__group,
+  &__members {
     background: #fafbfc;
     border-radius: 1rem;
     padding: 2rem 1.5rem;
-    flex: 1;
-    min-width: 340px;
-    box-shadow: 0 2px 16px 0 rgba(0,0,0,0.04);
+    flex: 1 1 0;
+    min-width: 0; // permite encolher igualmente
+    box-shadow: 0 2px 16px 0 rgba(0, 0, 0, 0.04);
+    display: flex;
+    flex-direction: column;
+    height: 100%; // ocupa toda a altura do container
   }
 
-  &__group h2, &__members h2 {
+  &__group h2,
+  &__members h2 {
     font-size: 1.6rem;
     font-weight: 700;
     margin-bottom: 1.5rem;
+  }
+
+  &__group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    width: 100%;
+    max-width: 1100px;
+    margin-bottom: 2rem;
   }
 }

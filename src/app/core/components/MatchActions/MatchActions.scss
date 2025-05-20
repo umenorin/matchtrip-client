@@ -3,13 +3,10 @@
   gap: 5rem;
   justify-content: center;
   align-items: center;
-  width: 100vw;
-  background: #fff;
+  width: 100%; // ocupa toda a largura do card, mas não ultrapassa
+  max-width: 100%; // garante que não passe do card
+  background: none;
   padding-bottom: 2rem;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  z-index: 10;
 
   &__btn {
     background: none;

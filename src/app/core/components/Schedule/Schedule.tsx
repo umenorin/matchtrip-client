@@ -1,5 +1,6 @@
 import "./Schedule.scss";
 import { FaHome, FaMapMarkerAlt, FaBus } from "react-icons/fa";
+import '../../../features/MatchPage/Match.scss';
 
 export default function Schedule() {
   return (

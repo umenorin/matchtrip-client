@@ -1,14 +1,14 @@
-import Header from "../Header/Header";
-import "./Layout.scss";
-import { Outlet } from "react-router";
+import Header from '../Header/Header';
+import './Layout.scss';
+import { Outlet } from 'react-router';
 
 export default function Layout() {
   return (
-    <div className="layout">
-      <Header />
-      <main className="layout__content">
-        <Outlet />
-      </main>
-    </div>
+    <>
+      <Header/> {/* Aqui o Header será renderizado */}
+        <main>
+          <Outlet /> {/* Aqui o Match será renderizado */}
+        </main>
+    </>
   );
 }
