@@ -200,10 +200,9 @@ const CreateTripModal = ({ onClose, onSubmit }: CreateTripModalProps | any) => {
           </div>
 
           <div className="create-trip-modal__actions">
-            <Button type="button" variant="outline" onClick={onClose}>
-              Cancelar
-            </Button>
-            <Button type="submit">Criar Viagem</Button>
+            <Button type="link" navigateTo="/">Cancelar</Button>
+            {/* <Button type="link">Criar Viagem</Button> */}
+            <Button type="link" navigateTo="/">Criar Viagem</Button>
           </div>
         </form>
       </div>
