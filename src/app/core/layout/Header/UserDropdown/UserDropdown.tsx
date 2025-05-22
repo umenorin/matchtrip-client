@@ -2,8 +2,8 @@ import { useState, useRef, useEffect } from "react";
 import { FaUserCircle } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import "./UserDropdown.scss";
-import { useAuth } from "../../../app/features/services/context/AuthContext";
 import Button from "../../../shared/Button/Button";
+import { useAuth } from "../../../../features/services/context/AuthContext";
 
 const UserDropdown = () => {
   const { user } = useAuth();
@@ -31,7 +31,7 @@ const UserDropdown = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
-
+    console.log("USER DROPDOWN: ",user)
   return (
     <div className="user-dropdown" ref={dropdownRef}>
       {user ? (
@@ -41,9 +41,9 @@ const UserDropdown = () => {
             onClick={() => setIsOpen(!isOpen)}
             aria-label="Menu do usuário"
           >
-            {user?.photo ? (
+            {user?.profileImage ? (
               <img
-                src={user.photo}
+                src={ import.meta.env.VITE_LOCAL_API+ user.profileImage}
                 alt="Foto do usuário"
                 className="user-dropdown__photo"
               />

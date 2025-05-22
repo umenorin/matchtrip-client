@@ -3,6 +3,7 @@ import logo from "../../../../assets/logo.png";
 import Navbar from "./Navbar/Navbar";
 import "./Header.scss";
 import Button from "../../shared/Button/Button";
+import UserDropdown from "./UserDropdown/UserDropdown";
 
 function HeaderLogo() {
   return (
@@ -21,19 +22,26 @@ function HeaderNavbar() {
     </div>
   );
 }
-
 function HeaderActions() {
-  return (
-    <div className="header__actions">
-      <Button type="link" navigateTo="/login">
-        Entrar
-      </Button>
-      <Button type="link" navigateTo="/register">
-        Cadastrar
-      </Button>
-    </div>
-  );
+  const storedToken = localStorage.getItem("token");
+
+  if (!storedToken) {
+    return (
+      <div className="header__actions">
+        <Button type="link" navigateTo="/login">
+          Entrar
+        </Button>
+        <Button type="link" navigateTo="/register">
+          Cadastrar
+        </Button>
+      </div>
+    );
+  }
+
+  return <UserDropdown />;
 }
+
+
 
 export default function Header() {
   const location = useLocation();
