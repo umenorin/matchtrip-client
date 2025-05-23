@@ -1,18 +1,18 @@
-import { useState, useRef } from "react";
+import { useState, useRef } from 'react';
+import axios from "axios";
 import {
   FaCamera,
   FaCalendarAlt,
   FaMapMarkerAlt,
   FaUsers,
   FaMoneyBillWave,
-} from "react-icons/fa";
-import Button from "../../shared/Button/Button";
-import Input from "../../shared/Input/Input";
-import "./CreateTripModal.scss";
+} from 'react-icons/fa';
+import Button from '../../shared/Button/Button';
+import Input from '../../shared/Input/Input';
+import './CreateTripModal.scss';
 
 interface CreateTripModalProps {
   onClose: () => void;
-  onSubmit: (tripData: TripData) => void;
 }
 
 interface TripData {
@@ -25,25 +25,28 @@ interface TripData {
   tripDate: string;
 }
 
-const CreateTripModal = ({ onClose, onSubmit }: CreateTripModalProps | any) => {
-  const [previewImage, setPreviewImage] = useState<string | null>(null);
+const CreateTripModal = ({ onClose }: CreateTripModalProps) => {
   const [formData, setFormData] = useState<TripData>({
     tripPhoto: null,
-    groupName: "",
-    tripType: "turismo",
+    groupName: '',
+    tripType: 'turismo',
     travelersCount: 2,
-    financialProfile: "medio",
-    location: "",
-    tripDate: "",
+    financialProfile: 'medio',
+    location: '',
+    tripDate: '',
   });
 
+  const [previewImage, setPreviewImage] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({
+      ...prev,
+      [name]: name === "travelersCount" ? Number(value) : value,
+    }));
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -59,9 +62,30 @@ const CreateTripModal = ({ onClose, onSubmit }: CreateTripModalProps | any) => {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // Função real para criar viagem
+  const createTrip = async (data: TripData) => {
+    const apiUrl = `${import.meta.env.VITE_LOCAL_API}/api/travel/create`;
+    const tripForm = new FormData();
+    tripForm.append("name", data.groupName);
+    tripForm.append("description", data.tripType);
+    tripForm.append("city", data.location);
+    tripForm.append("country", "Brasil"); // ajuste se necessário
+    tripForm.append("startDate", data.tripDate);
+    tripForm.append("endDate", data.tripDate); // ajuste se houver campo específico
+    tripForm.append("limitTravelers", String(data.travelersCount));
+    tripForm.append("financialProfile", data.financialProfile);
+    if (data.tripPhoto) {
+      tripForm.append("imageTravel", data.tripPhoto);
+    }
+
+    await axios.post(apiUrl, tripForm, {
+      withCredentials: true,
+    });
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    onSubmit(formData);
+    await createTrip(formData);
     onClose();
   };
 
@@ -194,15 +218,16 @@ const CreateTripModal = ({ onClose, onSubmit }: CreateTripModalProps | any) => {
               type="date"
               value={formData.tripDate}
               onChange={handleInputChange}
-              min={new Date().toISOString().split("T")[0]}
               required
             />
           </div>
-
           <div className="create-trip-modal__actions">
-            <Button type="link" navigateTo="/">Cancelar</Button>
-            {/* <Button type="link">Criar Viagem</Button> */}
-            <Button type="link" navigateTo="/">Criar Viagem</Button>
+            <Button type="link" navigateTo="/">
+              Cancelar
+            </Button>
+            <Button type="submit" navigateTo="/">
+              Criar Viagem
+            </Button>
           </div>
         </form>
       </div>

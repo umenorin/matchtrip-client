@@ -56,11 +56,7 @@ const router = createBrowserRouter([
         action: matchPageAction,
       },
 
-      {
-        path: "/create-trip",
-        element: <CreateTripModal />,
-  
-      },
+      // The "/create-trip" modal should be handled inside the Layout component, not as a standalone route.
     ],
   },
 ]);
