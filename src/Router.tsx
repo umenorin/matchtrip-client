@@ -11,11 +11,16 @@ import Match from "./app/features/MatchPage/Match";
 import { matchPageAction } from "./app/features/services/action/matchPageAction";
 import Layout from "./app/core/layout/Layout/Layout";
 import CreateTripModal from "./app/core/components/CreateTripModal/CreateTripModal";
+import { AuthProvider } from "./app/features/services/context/AuthContext";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Layout />,
+    element: (
+      <AuthProvider>
+        <Layout />
+      </AuthProvider>
+    ),
     errorElement: <ErrorPage />,
     children: [
       {
@@ -56,7 +61,14 @@ const router = createBrowserRouter([
         action: matchPageAction,
       },
 
+<<<<<<< HEAD
       // The "/create-trip" modal should be handled inside the Layout component, not as a standalone route.
+=======
+      {
+        path: "/create-trip",
+        element: <CreateTripModal />,
+      },
+>>>>>>> 95b5fd0b0ee83b1505b7d4cc271826c10a2126cb
     ],
   },
 ]);

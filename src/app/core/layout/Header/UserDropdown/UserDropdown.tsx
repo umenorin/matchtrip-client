@@ -3,10 +3,13 @@ import { FaUserCircle } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import "./UserDropdown.scss";
 import { useAuth } from "../../../../features/services/context/AuthContext";
+<<<<<<< HEAD
 import Button from "../../../shared/Button/Button";
+=======
+>>>>>>> 95b5fd0b0ee83b1505b7d4cc271826c10a2126cb
 
 const UserDropdown = () => {
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
@@ -31,49 +34,53 @@ const UserDropdown = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
-
+  console.log("USER DROPDOWN: ", user);
   return (
-    <div className="user-dropdown" ref={dropdownRef}>
-      {user ? (
-        <>
-          <button
-            className="user-dropdown__toggle"
-            onClick={() => setIsOpen(!isOpen)}
-            aria-label="Menu do usuário"
-          >
-            {user?.photo ? (
-              <img
-                src={user.photo}
-                alt="Foto do usuário"
-                className="user-dropdown__photo"
-              />
-            ) : (
-              <FaUserCircle className="user-dropdown__icon" />
-            )}
-          </button>
+    <div className="user-dropdown-wrapper">
+      <div className="user-dropdown" ref={dropdownRef}>
+        {user ? (
+          <>
+            <button
+              className="user-dropdown__toggle"
+              onClick={() => setIsOpen(!isOpen)}
+              aria-label="Menu do usuário"
+            >
+              {user?.profileImage ? (
+                <img
+                  src={import.meta.env.VITE_LOCAL_API + user.profileImage}
+                  alt="Foto do usuário"
+                  className="user-dropdown__photo"
+                />
+              ) : (
+                <FaUserCircle className="user-dropdown__icon" />
+              )}
+            </button>
 
-          {isOpen && (
-            <div className="user-dropdown__menu">
-              <button
-                className="user-dropdown__item"
-                onClick={handleProfileClick}
-              >
-                <FaUserCircle className="user-dropdown__item-icon" />
-                <span>Meu Perfil</span>
-              </button>
-            </div>
-          )}
-        </>
-      ) : (
-        <div className="perfil-none">
-          <Button navigateTo="/login" type="link">
-            Logar
-          </Button>
-          <Button navigateTo="/register" type="link">
-            Registrar
-          </Button>
-        </div>
-      )}
+            {isOpen && (
+              <div className="user-dropdown__menu">
+                <button
+                  className="user-dropdown__item"
+                  onClick={handleProfileClick}
+                >
+                  <FaUserCircle className="user-dropdown__item-icon" />
+                  <span>Meu Perfil</span>
+                </button>
+                <button
+                  className="user-dropdown__logout"
+                  onClick={() => {
+                    setIsOpen(false);
+                    logout();
+                  }}
+                >
+                  Sair
+                </button>
+              </div>
+            )}
+          </>
+        ) : (
+          <div className="perfil-none"></div>
+        )}
+      </div>
     </div>
   );
 };
