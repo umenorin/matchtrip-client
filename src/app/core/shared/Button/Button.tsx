@@ -2,8 +2,8 @@ import { Link } from "react-router";
 
 import "./Button.scss";
 
-// TODO
-export default function Button({ children, type, navigateTo }) {
+// Tipagem rápida usando any
+export default function Button({ children, type, navigateTo }: { children: any; type: any; navigateTo: any }) {
   if (type === "link")
     return (
       <Link to={navigateTo} className={`button`}>

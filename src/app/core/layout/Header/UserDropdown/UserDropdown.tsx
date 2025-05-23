@@ -3,10 +3,7 @@ import { FaUserCircle } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import "./UserDropdown.scss";
 import { useAuth } from "../../../../features/services/context/AuthContext";
-<<<<<<< HEAD
-import Button from "../../../shared/Button/Button";
-=======
->>>>>>> 95b5fd0b0ee83b1505b7d4cc271826c10a2126cb
+import Button from "../../..//shared/Button/Button";
 
 const UserDropdown = () => {
   const { user, logout } = useAuth();
