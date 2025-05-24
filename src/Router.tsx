@@ -10,9 +10,9 @@ import MyRequestsPage from "./app/features/MyRequestsPage/MyRequestsPage";
 import Match from "./app/features/MatchPage/Match";
 import { matchPageAction } from "./app/features/services/action/matchPageAction";
 import Layout from "./app/core/layout/Layout/Layout";
-import CreateTripModal from "./app/core/components/CreateTripModal/CreateTripModal";
 import { AuthProvider } from "./app/features/services/context/AuthContext";
-
+import CreateTripModal from "./app/core/components/CreateTripModal/CreateTripModal";
+import { tripPageAction } from "./app/features/services/action/tripPageAction";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -61,7 +61,11 @@ const router = createBrowserRouter([
         action: matchPageAction,
       },
 
-      // The "/create-trip" modal should be handled inside the Layout component, not as a standalone route.
+      {
+        path: "/create-trip",
+        element: <CreateTripModal onClose={() => {}} />,
+        action: tripPageAction,
+      },
     ],
   },
 ]);

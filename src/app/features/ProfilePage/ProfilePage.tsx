@@ -3,21 +3,25 @@ import { useNavigate } from 'react-router-dom';
 import './ProfilePage.scss';
 import { useState, useRef, useEffect } from 'react';
 import { useAuth } from '../services/context/AuthContext';
+import axios from 'axios';
 
 const ProfilePage = () => {
-  const { user } = useAuth();
+  // If setUser is not present in your AuthContextType, make it optional here:
+  const { user, setUser } = useAuth() as { user: any; setUser?: any };
   const navigate = useNavigate();
 
   // Dados mockados (substitua pelos dados reais do usuário)
   const userData = {
     name: user?.name || 'Usuário',
-    photo: user?.photo || '',
+    photo: user?.profileImage || '',
     bio: 'Apaixonado por viagens e aventuras ao ar livre!',
     birthDate: '15/03/1990',
     travelPreferences: ['Praia', 'Montanha', 'Aventura'],
     budget: 'R$ 2.000 - R$ 5.000',
     companionPreferences: 'Casais ou pequenos grupos',
   };
+
+  const [photo, setPhoto] = useState(userData.photo);
 
   const [travelPreferences, setTravelPreferences] = useState<string[]>(
     userData.travelPreferences
@@ -50,10 +54,7 @@ const ProfilePage = () => {
     'Amigos',
     'Pets',
   ];
-
   // Ref para o input de foto
-  const [photo] = useState(userData.photo);
-
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Estados para os inputs
@@ -108,49 +109,67 @@ const ProfilePage = () => {
     }
   }, [companionsDropdownOpen]);
 
-  // File input for photo upload
+// File input for photo upload
   function handlePhotoClick() {
     if (fileInputRef.current) {
       fileInputRef.current.click();
     }
   }
-
   // Handle photo change (dummy implementation)
   function handlePhotoChange(event: React.ChangeEvent<HTMLInputElement>) {
-    // You can implement photo upload logic here if needed
-    // For now, just log the file
-    if (event.target.files && event.target.files[0]) {
-      // Example: show preview or upload
-      // const file = event.target.files[0];
-      // const reader = new FileReader();
-      // reader.onload = (e) => setPhoto(e.target?.result as string);
-      // reader.readAsDataURL(file);
+  if (event.target.files && event.target.files[0]) {
+    const file = event.target.files[0];
+    const formData = new FormData();
+    formData.append("profileImage", file);
+    if (user && user.id) {
+      formData.append("userId", user.id);
+    } else {
+      alert("Usuário não autenticado.");
+      return;
     }
-  }
 
-  // Toggle travel preference option
+    axios.post<{ profileImage: string }>(
+      `${import.meta.env.VITE_LOCAL_API}/api/users/profile-photo`,
+      formData,
+      { withCredentials: true }
+    )
+    .then((res) => {
+      setPhoto(res.data.profileImage);
+      if (setUser) {
+        setUser((prev: any) => ({
+          ...prev,
+          profileImage: res.data.profileImage,
+        }));
+      }
+    })
+    .catch(() => {
+      alert("Erro ao atualizar foto de perfil");
+    });
+  }
+}
+
   function toggleOption(option: string) {
-    setTravelPreferences((prev) =>
+    setTravelPreferences((prev: string[]) =>
       prev.includes(option)
-        ? prev.filter((item) => item !== option)
+        ? prev.filter((item: string) => item !== option)
         : [...prev, option]
     );
   }
 
   // Toggle budget option
   function toggleBudget(option: string) {
-    setBudget((prev) =>
+    setBudget((prev: string[]) =>
       prev.includes(option)
-        ? prev.filter((item) => item !== option)
+        ? prev.filter((item: string) => item !== option)
         : [...prev, option]
     );
   }
 
   // Toggle companion option
   function toggleCompanion(option: string) {
-    setCompanions((prev) =>
+    setCompanions((prev: string[]) =>
       prev.includes(option)
-        ? prev.filter((item) => item !== option)
+        ? prev.filter((item: string) => item !== option)
         : [...prev, option]
     );
   }
@@ -414,6 +433,6 @@ const ProfilePage = () => {
       </div>
     </div>
   );
-};
+}
 
 export default ProfilePage;
