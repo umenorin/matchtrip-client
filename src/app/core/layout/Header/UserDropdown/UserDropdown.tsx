@@ -43,7 +43,7 @@ const UserDropdown = () => {
             >
               {user?.profileImage ? (
                 <img
-                  src={import.meta.env.VITE_LOCAL_API + user.profileImage}
+                  src={user.profileImage}
                   alt="Foto do usuário"
                   className="user-dropdown__photo"
                 />
