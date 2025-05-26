@@ -1,4 +1,4 @@
-import { FaEdit, FaUserCircle } from 'react-icons/fa';
+import { FaEdit } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import './ProfilePage.scss';
 import { useState, useRef, useEffect } from 'react';
@@ -109,7 +109,7 @@ const ProfilePage = () => {
     }
   }, [companionsDropdownOpen]);
 
-// File input for photo upload
+  // File input for photo upload
   function handlePhotoClick() {
     if (fileInputRef.current) {
       fileInputRef.current.click();
@@ -121,15 +121,19 @@ const ProfilePage = () => {
     const file = event.target.files[0];
     const formData = new FormData();
     formData.append("profileImage", file);
-    if (user && user.id) {
-      formData.append("userId", user.id);
+
+    // Use o campo correto para identificar o usuário
+    const userId = user?.uniqueIdentification;
+    if (userId) {
+      formData.append("userId", userId);
     } else {
       alert("Usuário não autenticado.");
       return;
     }
 
+    console.log("FormData:", formData);
     axios.post<{ profileImage: string }>(
-      `${import.meta.env.VITE_LOCAL_API}/api/users/profile-photo`,
+      `${import.meta.env.VITE_LOCAL_API}/api/users/signup/edit/${userId}`,
       formData,
       { withCredentials: true }
     )
@@ -178,7 +182,6 @@ const ProfilePage = () => {
     <div className="profile-page">
       <header className="profile-page__header">
         <h1>Meu Perfil</h1>
-    
       </header>
 
       <div className="profile-page__content">
@@ -189,17 +192,15 @@ const ProfilePage = () => {
             style={{ cursor: 'pointer' }}
             title="Clique para alterar a foto"
           >
-            {photo ? (
-              <img
-                src={photo}
-                alt={userData.name}
-                className="profile-page__photo"
-              />
-            ) : (
-              <div className="profile-page__photo-placeholder">
-                <FaUserCircle />
-              </div>
-            )}
+            <img
+              src={
+                photo
+                  ? `${import.meta.env.VITE_LOCAL_API}/uploads/users/${photo}`
+                  : '/default-avatar.png'
+              }
+              alt={userData.name}
+              className="profile-page__photo"
+            />
             <input
               type="file"
               accept="image/*"
@@ -433,6 +434,6 @@ const ProfilePage = () => {
       </div>
     </div>
   );
-}
+};
 
 export default ProfilePage;
