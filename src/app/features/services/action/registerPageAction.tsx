@@ -13,7 +13,7 @@ export async function registerPageAction({ request }: ActionFunctionArgs) {
     nationality: String(formData.get("nationality")),
     gender: String(formData.get("gender")),
   };
-  console.log(user)
+  console.log(user);
   const apiUrl = `${import.meta.env.VITE_LOCAL_API}/api/users/singup`;
 
   try {
@@ -30,9 +30,18 @@ export async function registerPageAction({ request }: ActionFunctionArgs) {
 
     if (response.data.token) {
       const userData = response.data.token;
-      const { id, ...rest } = userData;
+      const { id, profileImage, ...rest } = userData;
 
-      localStorage.setItem("user", JSON.stringify(rest));
+      // Adiciona a URL base do .env ao profileImage (se existir)
+      const updatedUserData = {
+        ...rest,
+        ...(profileImage && {
+          profileImage: `${import.meta.env.VITE_LOCAL_API}${profileImage}`,
+        }),
+      };
+
+      localStorage.setItem("user", JSON.stringify(updatedUserData));
+
       localStorage.setItem("token", JSON.stringify(id));
       return redirect("/");
     }

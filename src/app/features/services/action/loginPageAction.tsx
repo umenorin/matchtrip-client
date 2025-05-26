@@ -27,9 +27,17 @@ export async function loginPageAction({ request }: ActionFunctionArgs) {
 
     if (response.data.token) {
       const userData = response.data.token;
-      const { id, ...rest } = userData;
+      const { id, profileImage, ...rest } = userData;
 
-      localStorage.setItem("user", JSON.stringify(rest));
+      // Adiciona a URL base do .env ao profileImage (se existir)
+      const updatedUserData = {
+        ...rest,
+        ...(profileImage && {
+          profileImage: `${import.meta.env.VITE_LOCAL_API}${profileImage}`,
+        }),
+      };
+
+      localStorage.setItem("user", JSON.stringify(updatedUserData));
       localStorage.setItem("token", JSON.stringify(id));
 
       return redirect("/");

@@ -11,7 +11,7 @@ const ProfilePage = () => {
   // Dados mockados (substitua pelos dados reais do usuário)
   const userData = {
     name: user?.name || 'Usuário',
-    photo: user?.photo || '',
+    photo: user?.profileImage || '',
     bio: 'Apaixonado por viagens e aventuras ao ar livre!',
     birthDate: '15/03/1990',
     travelPreferences: ['Praia', 'Montanha', 'Aventura'],
