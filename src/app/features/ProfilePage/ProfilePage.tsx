@@ -1,11 +1,13 @@
-import { FaEdit, FaUserCircle } from 'react-icons/fa';
+import { FaEdit } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import './ProfilePage.scss';
 import { useState, useRef, useEffect } from 'react';
 import { useAuth } from '../services/context/AuthContext';
+import axios from 'axios';
 
 const ProfilePage = () => {
-  const { user } = useAuth();
+  // If setUser is not present in your AuthContextType, make it optional here:
+  const { user, setUser } = useAuth() as { user: any; setUser?: any };
   const navigate = useNavigate();
 
   // Dados mockados (substitua pelos dados reais do usuário)
@@ -18,6 +20,8 @@ const ProfilePage = () => {
     budget: 'R$ 2.000 - R$ 5.000',
     companionPreferences: 'Casais ou pequenos grupos',
   };
+
+  const [photo, setPhoto] = useState(userData.photo);
 
   const [travelPreferences, setTravelPreferences] = useState<string[]>(
     userData.travelPreferences
@@ -50,10 +54,7 @@ const ProfilePage = () => {
     'Amigos',
     'Pets',
   ];
-
   // Ref para o input de foto
-  const [photo] = useState(userData.photo);
-
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Estados para os inputs
@@ -114,43 +115,65 @@ const ProfilePage = () => {
       fileInputRef.current.click();
     }
   }
-
   // Handle photo change (dummy implementation)
   function handlePhotoChange(event: React.ChangeEvent<HTMLInputElement>) {
-    // You can implement photo upload logic here if needed
-    // For now, just log the file
-    if (event.target.files && event.target.files[0]) {
-      // Example: show preview or upload
-      // const file = event.target.files[0];
-      // const reader = new FileReader();
-      // reader.onload = (e) => setPhoto(e.target?.result as string);
-      // reader.readAsDataURL(file);
-    }
-  }
+  if (event.target.files && event.target.files[0]) {
+    const file = event.target.files[0];
+    const formData = new FormData();
+    formData.append("profileImage", file);
 
-  // Toggle travel preference option
+    // Use o campo correto para identificar o usuário
+    const userId = user?.uniqueIdentification;
+    if (userId) {
+      formData.append("userId", userId);
+    } else {
+      alert("Usuário não autenticado.");
+      return;
+    }
+
+    console.log("FormData:", formData);
+    axios.post<{ profileImage: string }>(
+      `${import.meta.env.VITE_LOCAL_API}/api/users/signup/edit/${userId}`,
+      formData,
+      { withCredentials: true }
+    )
+    .then((res) => {
+      setPhoto(res.data.profileImage);
+      if (setUser) {
+        setUser((prev: any) => ({
+          ...prev,
+          profileImage: res.data.profileImage,
+        }));
+      }
+    })
+    .catch(() => {
+      alert("Erro ao atualizar foto de perfil");
+    });
+  }
+}
+
   function toggleOption(option: string) {
-    setTravelPreferences((prev) =>
+    setTravelPreferences((prev: string[]) =>
       prev.includes(option)
-        ? prev.filter((item) => item !== option)
+        ? prev.filter((item: string) => item !== option)
         : [...prev, option]
     );
   }
 
   // Toggle budget option
   function toggleBudget(option: string) {
-    setBudget((prev) =>
+    setBudget((prev: string[]) =>
       prev.includes(option)
-        ? prev.filter((item) => item !== option)
+        ? prev.filter((item: string) => item !== option)
         : [...prev, option]
     );
   }
 
   // Toggle companion option
   function toggleCompanion(option: string) {
-    setCompanions((prev) =>
+    setCompanions((prev: string[]) =>
       prev.includes(option)
-        ? prev.filter((item) => item !== option)
+        ? prev.filter((item: string) => item !== option)
         : [...prev, option]
     );
   }
@@ -159,7 +182,6 @@ const ProfilePage = () => {
     <div className="profile-page">
       <header className="profile-page__header">
         <h1>Meu Perfil</h1>
-    
       </header>
 
       <div className="profile-page__content">
@@ -170,17 +192,15 @@ const ProfilePage = () => {
             style={{ cursor: 'pointer' }}
             title="Clique para alterar a foto"
           >
-            {photo ? (
-              <img
-                src={photo}
-                alt={userData.name}
-                className="profile-page__photo"
-              />
-            ) : (
-              <div className="profile-page__photo-placeholder">
-                <FaUserCircle />
-              </div>
-            )}
+            <img
+              src={
+                photo
+                  ? `${import.meta.env.VITE_LOCAL_API}/uploads/users/${photo}`
+                  : '/default-avatar.png'
+              }
+              alt={userData.name}
+              className="profile-page__photo"
+            />
             <input
               type="file"
               accept="image/*"

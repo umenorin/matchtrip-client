@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react';
-import axios from "axios";
+import axios from 'axios';
 import {
   FaCamera,
   FaCalendarAlt,
@@ -10,6 +10,7 @@ import {
 import Button from '../../shared/Button/Button';
 import Input from '../../shared/Input/Input';
 import './CreateTripModal.scss';
+import { useAuth } from '../../../../app/features/services/context/AuthContext';
 
 interface CreateTripModalProps {
   onClose: () => void;
@@ -23,9 +24,14 @@ interface TripData {
   financialProfile: string;
   location: string;
   tripDate: string;
+  latitude: string;
+  longitude: string;
+  owner: string;
 }
 
 const CreateTripModal = ({ onClose }: CreateTripModalProps) => {
+  const { user } = useAuth(); // pega o usuário logado
+
   const [formData, setFormData] = useState<TripData>({
     tripPhoto: null,
     groupName: '',
@@ -34,6 +40,9 @@ const CreateTripModal = ({ onClose }: CreateTripModalProps) => {
     financialProfile: 'medio',
     location: '',
     tripDate: '',
+    latitude: '',
+    longitude: '',
+    owner: user?.id || '', // já preenche com o id do usuário logado
   });
 
   const [previewImage, setPreviewImage] = useState<string | null>(null);
@@ -45,7 +54,7 @@ const CreateTripModal = ({ onClose }: CreateTripModalProps) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [name]: name === "travelersCount" ? Number(value) : value,
+      [name]: name === 'travelersCount' ? Number(value) : value,
     }));
   };
 
@@ -63,19 +72,22 @@ const CreateTripModal = ({ onClose }: CreateTripModalProps) => {
   };
 
   // Função real para criar viagem
-  const createTrip = async (data: TripData) => {
+ const createTrip = async (data: TripData) => {
     const apiUrl = `${import.meta.env.VITE_LOCAL_API}/api/travel/create`;
     const tripForm = new FormData();
-    tripForm.append("name", data.groupName);
-    tripForm.append("description", data.tripType);
-    tripForm.append("city", data.location);
-    tripForm.append("country", "Brasil"); // ajuste se necessário
-    tripForm.append("startDate", data.tripDate);
-    tripForm.append("endDate", data.tripDate); // ajuste se houver campo específico
-    tripForm.append("limitTravelers", String(data.travelersCount));
-    tripForm.append("financialProfile", data.financialProfile);
+
+    tripForm.append('name', data.groupName);
+    tripForm.append('description', data.tripType);
+    tripForm.append('latitude', data.latitude || '');
+    tripForm.append('longitude', data.longitude || '');
+    tripForm.append('city', data.location);
+    tripForm.append('country', 'Brasil');
+    tripForm.append('startDate', data.tripDate);
+    tripForm.append('endDate', data.tripDate);
+    tripForm.append('limitTravelers', String(data.travelersCount));
+    tripForm.append('owner', user?.id || ''); // garante que vai o id do usuário logado
     if (data.tripPhoto) {
-      tripForm.append("imageTravel", data.tripPhoto);
+      tripForm.append('imageTravel', data.tripPhoto);
     }
 
     await axios.post(apiUrl, tripForm, {
@@ -221,11 +233,35 @@ const CreateTripModal = ({ onClose }: CreateTripModalProps) => {
               required
             />
           </div>
+
+          {/* Latitude */}
+          <div className="create-trip-modal__input-group">
+            <label className="create-trip-modal__label">Latitude</label>
+            <Input
+              name="latitude"
+              type="text"
+              value={formData.latitude}
+              onChange={handleInputChange}
+              placeholder="Ex: -5.123456"
+            />
+          </div>
+
+          {/* Longitude */}
+          <div className="create-trip-modal__input-group">
+            <label className="create-trip-modal__label">Longitude</label>
+            <Input
+              name="longitude"
+              type="text"
+              value={formData.longitude}
+              onChange={handleInputChange}
+              placeholder="Ex: -35.123456"
+            />
+          </div>
           <div className="create-trip-modal__actions">
             <Button type="link" navigateTo="/">
               Cancelar
             </Button>
-            <Button type="submit" navigateTo="/">
+            <Button type="link" navigateTo="/">
               Criar Viagem
             </Button>
           </div>

@@ -1,14 +1,19 @@
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 
 import "./Button.scss";
 
-// Tipagem rápida usando any
-export default function Button({ children, type, navigateTo }: { children: any; type: any; navigateTo: any }) {
-  if (type === "link")
+type ButtonProps = {
+  children: React.ReactNode;
+  type: "button" | "link";
+  navigateTo?: string;
+};
+
+export default function Button({ children, type, navigateTo }: ButtonProps) {
+  if (type === "link" && navigateTo)
     return (
-      <Link to={navigateTo} className={`button`}>
+      <Link to={navigateTo} className="button">
         {children}
       </Link>
     );
-  return <button className={`button`}>{children}</button>;
+  return <button className="button">{children}</button>;
 }
