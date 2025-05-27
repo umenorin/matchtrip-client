@@ -1,14 +1,8 @@
 import { useState, useRef } from "react";
-import {
-  FaCamera,
-  FaCalendarAlt,
-  FaMapMarkerAlt,
-  FaUsers,
-  FaMoneyBillWave,
-} from "react-icons/fa";
-import Button from "../../shared/Button/Button";
+import { FaCamera } from "react-icons/fa";
 import Input from "../../shared/Input/Input";
 import "./CreateTripModal.scss";
+import { Form } from "react-router-dom";
 
 interface CreateTripModalProps {
   onClose: () => void;
@@ -16,31 +10,32 @@ interface CreateTripModalProps {
 }
 
 interface TripData {
-  tripPhoto: File | null;
-  groupName: string;
-  tripType: string;
-  travelersCount: number;
-  financialProfile: string;
-  location: string;
-  tripDate: string;
+  imageTravel: File | null;
+  name: string;
+  description: string;
+  country: string;
+  city: string;
+  startDate: string; // ou Date, se estiver lidando com objetos Date
+  endDate: string; // idem acima
+  limitTravelers: number;
 }
 
-const CreateTripModal = ({ onClose, onSubmit }: CreateTripModalProps | any) => {
+const CreateTripModal = ({ onClose }: CreateTripModalProps | any) => {
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [formData, setFormData] = useState<TripData>({
-    tripPhoto: null,
-    groupName: "",
-    tripType: "turismo",
-    travelersCount: 2,
-    financialProfile: "medio",
-    location: "",
-    tripDate: "",
+    imageTravel: null,
+    name: "",
+    description: "",
+    country: "",
+    city: "",
+    startDate: "", // ou new Date() se for trabalhar com objetos Date
+    endDate: "", // idem acima
+    limitTravelers: 0, // ou outro valor padrão
   });
-
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -49,7 +44,6 @@ const CreateTripModal = ({ onClose, onSubmit }: CreateTripModalProps | any) => {
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
-      setFormData((prev) => ({ ...prev, tripPhoto: file }));
 
       const reader = new FileReader();
       reader.onloadend = () => {
@@ -57,12 +51,6 @@ const CreateTripModal = ({ onClose, onSubmit }: CreateTripModalProps | any) => {
       };
       reader.readAsDataURL(file);
     }
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    onSubmit(formData);
-    onClose();
   };
 
   return (
@@ -74,12 +62,17 @@ const CreateTripModal = ({ onClose, onSubmit }: CreateTripModalProps | any) => {
 
         <h2 className="create-trip-modal__title">Criar Nova Viagem</h2>
 
-        <form onSubmit={handleSubmit} className="create-trip-modal__form">
+        <Form
+          method="post"
+          encType="multipart/form-data"
+          className="create-trip-modal__form"
+        >
           {/* Foto da Viagem */}
           <div className="create-trip-modal__photo-upload">
             <label className="create-trip-modal__photo-label">
               <input
                 type="file"
+                name="imageTravel"
                 ref={fileInputRef}
                 accept="image/*"
                 onChange={handleFileChange}
@@ -100,111 +93,110 @@ const CreateTripModal = ({ onClose, onSubmit }: CreateTripModalProps | any) => {
             </label>
           </div>
 
-          {/* Nome do Grupo */}
+          {/* Nome da Viagem */}
           <div className="create-trip-modal__input-group">
-            <label className="create-trip-modal__label">Nome do Grupo</label>
+            <label className="create-trip-modal__label">Nome da Viagem</label>
             <Input
-              name="groupName"
+              name="name"
               type="text"
-              value={formData.groupName}
+              value={formData.name}
               onChange={handleInputChange}
-              placeholder="Ex: Amigos da Praia"
+              placeholder="Ex: Viagem dos sonhos"
+              className="create-trip-modal__input"
               required
             />
           </div>
 
-          {/* Tipo de Viagem */}
+          {/* Descrição */}
           <div className="create-trip-modal__input-group">
-            <label className="create-trip-modal__label">Tipo de Viagem</label>
-            <select
-              name="tripType"
-              value={formData.tripType}
-              onChange={handleInputChange}
-              className="create-trip-modal__select"
-              required
-            >
-              <option value="turismo">Turismo</option>
-              <option value="negocios">Negócios</option>
-              <option value="aventura">Aventura</option>
-              <option value="romantica">Romântica</option>
-              <option value="familiar">Familiar</option>
-            </select>
-          </div>
-
-          {/* Quantidade de Viajantes */}
-          <div className="create-trip-modal__input-group">
-            <label className="create-trip-modal__label">
-              <FaUsers className="create-trip-modal__field-icon" />
-              Quantos viajantes?
-            </label>
+            <label className="create-trip-modal__label">Descrição</label>
             <Input
-              name="travelersCount"
-              type="number"
-              min="1"
-              max="20"
-              value={formData.travelersCount}
-              onChange={handleInputChange}
-              required
-            />
-          </div>
-
-          {/* Perfil Financeiro */}
-          <div className="create-trip-modal__input-group">
-            <label className="create-trip-modal__label">
-              <FaMoneyBillWave className="create-trip-modal__field-icon" />
-              Perfil Financeiro
-            </label>
-            <select
-              name="financialProfile"
-              value={formData.financialProfile}
-              onChange={handleInputChange}
-              className="create-trip-modal__select"
-              required
-            >
-              <option value="economico">Econômico</option>
-              <option value="medio">Médio</option>
-              <option value="luxo">Luxo</option>
-            </select>
-          </div>
-
-          {/* Local */}
-          <div className="create-trip-modal__input-group">
-            <label className="create-trip-modal__label">
-              <FaMapMarkerAlt className="create-trip-modal__field-icon" />
-              Local da Viagem
-            </label>
-            <Input
-              name="location"
+              name="description"
               type="text"
-              value={formData.location}
+              value={formData.description}
               onChange={handleInputChange}
-              placeholder="Ex: Praia de Pipa - RN"
+              placeholder="Uma viagem inesquecível"
+              className="create-trip-modal__input"
               required
             />
           </div>
 
-          {/* Data Prevista */}
+          {/* País */}
           <div className="create-trip-modal__input-group">
-            <label className="create-trip-modal__label">
-              <FaCalendarAlt className="create-trip-modal__field-icon" />
-              Data Prevista
-            </label>
+            <label className="create-trip-modal__label">País</label>
             <Input
-              name="tripDate"
+              name="country"
+              type="text"
+              value={formData.country}
+              onChange={handleInputChange}
+              placeholder="Ex: França"
+              className="create-trip-modal__input"
+              required
+            />
+          </div>
+
+          {/* Cidade */}
+          <div className="create-trip-modal__input-group">
+            <label className="create-trip-modal__label">Cidade</label>
+            <Input
+              name="city"
+              type="text"
+              value={formData.city}
+              onChange={handleInputChange}
+              placeholder="Ex: Paris"
+              className="create-trip-modal__input"
+              required
+            />
+          </div>
+
+          {/* Data de Início */}
+          <div className="create-trip-modal__input-group">
+            <label className="create-trip-modal__label">Data de Início</label>
+            <Input
+              name="startDate"
               type="date"
-              value={formData.tripDate}
+              value={formData.startDate}
               onChange={handleInputChange}
-              min={new Date().toISOString().split("T")[0]}
+              className="create-trip-modal__input"
               required
             />
           </div>
 
-          <div className="create-trip-modal__actions">
-            <Button type="link" navigateTo="/">Cancelar</Button>
-            {/* <Button type="link">Criar Viagem</Button> */}
-            <Button type="link" navigateTo="/">Criar Viagem</Button>
+          {/* Data de Término */}
+          <div className="create-trip-modal__input-group">
+            <label className="create-trip-modal__label">Data de Término</label>
+            <Input
+              name="endDate"
+              type="date"
+              value={formData.endDate}
+              onChange={handleInputChange}
+              className="create-trip-modal__input"
+              required
+            />
           </div>
-        </form>
+
+          {/* Limite de Viajantes */}
+          <div className="create-trip-modal__input-group">
+            <label className="create-trip-modal__label">
+              Limite de Viajantes
+            </label>
+            <Input
+              name="limitTravelers"
+              type="number"
+              value={formData.limitTravelers}
+              onChange={handleInputChange}
+              min={1}
+              max={50}
+              className="create-trip-modal__input"
+              required
+            />
+          </div>
+
+          {/* Botão de Enviar */}
+          <button type="submit" className="create-trip-modal__submit-button">
+            Criar Viagem
+          </button>
+        </Form>
       </div>
     </div>
   );

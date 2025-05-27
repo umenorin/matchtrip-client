@@ -30,7 +30,7 @@ const UserDropdown = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
-  console.log("USER DROPDOWN: ", user);
+  
   return (
     <div className="user-dropdown-wrapper">
       <div className="user-dropdown" ref={dropdownRef}>
