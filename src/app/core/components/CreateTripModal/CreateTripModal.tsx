@@ -3,10 +3,8 @@ import { FaCamera } from "react-icons/fa";
 import Input from "../../shared/Input/Input";
 import "./CreateTripModal.scss";
 import { Form } from "react-router-dom";
-
 interface CreateTripModalProps {
   onClose: () => void;
-  onSubmit: (tripData: TripData) => void;
 }
 
 interface TripData {
@@ -32,13 +30,17 @@ const CreateTripModal = ({ onClose }: CreateTripModalProps | any) => {
     endDate: "", // idem acima
     limitTravelers: 0, // ou outro valor padrão
   });
+
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({
+      ...prev,
+      [name]: name === 'travelersCount' ? Number(value) : value,
+    }));
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -52,6 +54,7 @@ const CreateTripModal = ({ onClose }: CreateTripModalProps | any) => {
       reader.readAsDataURL(file);
     }
   };
+
 
   return (
     <div className="create-trip-modal__overlay">
@@ -173,6 +176,7 @@ const CreateTripModal = ({ onClose }: CreateTripModalProps | any) => {
               className="create-trip-modal__input"
               required
             />
+
           </div>
 
           {/* Limite de Viajantes */}
