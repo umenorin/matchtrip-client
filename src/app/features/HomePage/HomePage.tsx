@@ -4,22 +4,21 @@ import CategoryFilter from "../../core/components/CategoryFilter/CategoryFilter"
 import "./HomePage.scss";
 import MyRequestsPage from "../MyRequestsPage/MyRequestsPage";
 import CreateTripModal from "../../core/components/CreateTripModal/CreateTripModal";
-import Button from "../../core/shared/Button/Button";
 import { useAuth } from "../services/context/AuthContext";
 
 export default function HomePage() {
   const [showModal, setShowModal] = useState(false);
-  const { user, isAuthenticated } = useAuth();
+  const { user} = useAuth();
 
   return (
     <div className="home-page-container">
       {/* Só mostra o botão se o usuário estiver logado */}
-      {isAuthenticated && (
+      {user && (
         <div className="button-new-trip">
-          <Button type="button" onClick={() => setShowModal(true)}>
+          <button type="button" onClick={() => setShowModal(true)}>
             Nova Viagem
-          </Button>
-          {showModal && <CreateTripModal onClose={() => setShowModal(false)} />}
+          </button>
+          {showModal && <CreateTripModal/>}
         </div>
       )}
       

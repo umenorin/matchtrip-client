@@ -15,7 +15,7 @@ import image52 from "../../../assets/image52.png";
 import image53 from "../../../assets/image53.png";
 import fotoEstela from "../../../assets/fotoEstela.png";
 import { useAuth } from "../services/context/AuthContext";
-import { Slider } from "antd";
+import { Slider } from 'antd';
 
 // Tipos para as viagens
 type Trip = {

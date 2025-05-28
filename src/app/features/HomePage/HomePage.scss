@@ -13,30 +13,6 @@
     grid-template-columns: 1fr;
   }
 }
-
-.button-new-trip {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: fixed;
-  bottom: 2rem;
-  right: 2rem;
-  width: 60px;
-  height: 60px;
-  background-color: #0098b6;
-  color: white;
-  font-weight: bold;
-  border-radius: 50%;
-  transition: background-color 0.2s ease;
-  z-index: 1000;
-  box-shadow: 0 4px 12px rgba(0, 152, 182, 0.3);
-
-  &:hover {
-    background-color: #007a99;
-    transform: scale(1.05);
-  }
-}
-
 .trip-modal {
   max-width: 600px;
   width: 100%;
