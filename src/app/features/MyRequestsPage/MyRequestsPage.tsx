@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./MyRequestsPage.scss";
 import {
   FaComments,
@@ -15,6 +15,7 @@ import image52 from "../../../assets/image52.png";
 import image53 from "../../../assets/image53.png";
 import fotoEstela from "../../../assets/fotoEstela.png";
 import { useAuth } from "../services/context/AuthContext";
+import { Slider } from "antd";
 
 // Tipos para as viagens
 type Trip = {
@@ -197,11 +198,26 @@ const MyRequestsPage = () => {
     }
   };
 
+  useEffect(() => {
+    const slider = document.querySelector(".range-wrapper input");
+    if (slider) {
+      slider.style.setProperty("--value", recommendation.toString());
+    }
+  }, [recommendation]);
+
   return (
     <div className="my-requests-page">
-      <header className="my-requests-page__header">
+      <div className="my-requests-page__header">
+        {selectedTrip ? (
+          <button
+            className="my-requests-page__back-button"
+            onClick={() => setSelectedTrip(null)}
+          >
+            ← Voltar
+          </button>
+        ) : null}
         <h1>Minhas Viagens</h1>
-      </header>
+      </div>
 
       <div className="my-requests-page__tabs">
         <button
@@ -269,19 +285,10 @@ const MyRequestsPage = () => {
 
         {selectedTrip && (
           <div className="my-requests-page__trip-details">
-            <div className="trip-details__header">
-              <h2>{selectedTrip.title}</h2>
-              <button
-                className="trip-details__close-button"
-                onClick={() => setSelectedTrip(null)}
-              >
-                <FaTimes />
-              </button>
-            </div>
+            <div className="trip-details__header"></div>
 
             {selectedTrip.status === "ongoing" ? (
               <div className="trip-details__chat">
-                {/* Chat para viagens em andamento (código anterior) */}
                 {selectedTrip && (
                   <div className="my-requests-page__chat-container">
                     <div className="chat-container__header">
@@ -294,47 +301,79 @@ const MyRequestsPage = () => {
                       </button>
                     </div>
 
-                    <div className="chat-container__participants">
-                      <h4>Participantes:</h4>
-                      <div className="participants-list">
-                        {selectedTrip.participants.map((participant: any) => (
-                          <div key={participant.id} className="participant">
-                            {participant.photo ? (
-                              <img
-                                src={participant.photo}
-                                alt={participant.name}
-                              />
-                            ) : (
-                              <div className="participant__placeholder">
-                                {participant.name.charAt(0)}
-                              </div>
-                            )}
-                            <span>{participant.name}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div className="chat-container__messages">
-                      {selectedTrip.messages.length === 0 ? (
-                        <p className="no-messages">
-                          Nenhuma mensagem ainda. Seja o primeiro a enviar!
-                        </p>
-                      ) : (
-                        selectedTrip.messages.map((msg: any, index: number) => (
-                          <div
-                            key={index}
-                            className={`message ${
-                              msg.userId === user?.id ? "sent" : "received"
-                            }`}
-                          >
-                            <div className="message__content">
-                              <p>{msg.text}</p>
-                              <span className="message__time">{msg.time}</span>
+                    <div className="chat-container__content">
+                      <div className="chat-container__participants">
+                        <h4>Participantes:</h4>
+                        <div className="participants-list">
+                          {selectedTrip.participants.map((participant: any) => (
+                            <div key={participant.id} className="participant">
+                              {participant.photo ? (
+                                <img
+                                  src={participant.photo}
+                                  alt={participant.name}
+                                />
+                              ) : (
+                                <div className="participant__placeholder">
+                                  {participant.name.charAt(0)}
+                                </div>
+                              )}
+                              <span>{participant.name}</span>
                             </div>
-                          </div>
-                        ))
-                      )}
+                          ))}
+                        </div>
+                      </div>
+
+                      <div className="chat-container__messages">
+                        {selectedTrip.messages.length === 0 ? (
+                          <p className="no-messages">
+                            Nenhuma mensagem ainda. Seja o primeiro a enviar!
+                          </p>
+                        ) : (
+                          selectedTrip.messages.map(
+                            (msg: any, index: number) => {
+                              // Encontra o participante que enviou a mensagem
+                              const sender = selectedTrip.participants.find(
+                                (p: any) => p.id === msg.userId
+                              );
+
+                              return (
+                                <div
+                                  key={index}
+                                  className={`message ${
+                                    msg.userId === user?.id
+                                      ? "sent"
+                                      : "received"
+                                  }`}
+                                >
+                                  {/* Adiciona o remetente antes da mensagem */}
+                                  <div className="message__sender">
+                                    {sender?.photo ? (
+                                      <img
+                                        src={sender.photo}
+                                        alt={sender.name}
+                                        className="message__sender-photo"
+                                      />
+                                    ) : (
+                                      <div className="message__sender-initial">
+                                        {sender?.name?.charAt(0) || "?"}
+                                      </div>
+                                    )}
+                                    <span className="message__sender-name">
+                                      {sender?.name || "Remetente desconhecido"}
+                                    </span>
+                                  </div>
+                                  <div className="message__content">
+                                    <p>{msg.text}</p>
+                                    <span className="message__time">
+                                      {msg.time}
+                                    </span>
+                                  </div>
+                                </div>
+                              );
+                            }
+                          )
+                        )}
+                      </div>
                     </div>
 
                     <div className="chat-container__input">
@@ -359,209 +398,170 @@ const MyRequestsPage = () => {
                 )}
               </div>
             ) : (
-              <div className="trip-details__review">
-                <h3>Avalie sua experiência</h3>
+              <div className="trip-details__overlay">
+                <div className="trip-details__review">
+                  <h3>Avalie sua experiência</h3>
 
-                <div className="rating-section">
-                  <h4>Como você avalia esta viagem?</h4>
-                  <div className="stars-rating">
-                    {[1, 2, 3, 4, 5].map((star) => (
-                      <span
-                        key={star}
-                        className="star"
-                        onMouseEnter={() => setHoverRating(star)}
-                        onMouseLeave={() => setHoverRating(0)}
-                        onClick={() => handleRateTrip(star)}
-                      >
-                        {star <= (hoverRating || tripRating) ? (
-                          <FaStar className="filled" color="blue" />
-                        ) : (
-                          <FaRegStar />
+                  <div className="rating-section">
+                    <h4>Como você avalia esta viagem?</h4>
+                    <div className="stars-rating">
+                      {[1, 2, 3, 4, 5].map((star) => (
+                        <span
+                          key={star}
+                          className="star"
+                          onMouseEnter={() => setHoverRating(star)}
+                          onMouseLeave={() => setHoverRating(0)}
+                          onClick={() => handleRateTrip(star)}
+                        >
+                          {star <= (hoverRating || tripRating) ? (
+                            <FaStar className="filled" />
+                          ) : (
+                            <FaRegStar className="outlined" />
+                          )}
+                        </span>
+                      ))}
+                    </div>
+                    <p className="rating-text">
+                      {tripRating === 0
+                        ? "Selecione uma avaliação"
+                        : tripRating === 1
+                        ? "Péssima"
+                        : tripRating === 2
+                        ? "Ruim"
+                        : tripRating === 3
+                        ? "Boa"
+                        : tripRating === 4
+                        ? "Muito boa"
+                        : "Excelente"}
+                    </p>
+                  </div>
+
+                  <div className="feedback-section">
+                    <h4>Perguntas sobre a viagem</h4>
+
+                    <div className="feedback-question">
+                      <p>Como foi a organização da viagem?</p>
+                      <div className="feedback-options">
+                        {["excellent", "good", "regular", "bad"].map(
+                          (option) => (
+                            <button
+                              key={option}
+                              className={`feedback-button ${
+                                feedback.question1 === option ? "selected" : ""
+                              }`}
+                              onClick={() =>
+                                handleFeedbackChange("question1", option)
+                              }
+                            >
+                              {option === "excellent"
+                                ? "Excelente"
+                                : option === "good"
+                                ? "Boa"
+                                : option === "regular"
+                                ? "Regular"
+                                : "Ruim"}
+                            </button>
+                          )
                         )}
-                      </span>
-                    ))}
-                  </div>
-                  <p className="rating-text">
-                    {tripRating === 0
-                      ? "Selecione uma avaliação"
-                      : tripRating === 1
-                      ? "Péssima"
-                      : tripRating === 2
-                      ? "Ruim"
-                      : tripRating === 3
-                      ? "Boa"
-                      : tripRating === 4
-                      ? "Muito boa"
-                      : "Excelente"}
-                  </p>
-                </div>
+                      </div>
+                    </div>
 
-                <div className="feedback-section">
-                  <h4>Perguntas sobre a viagem</h4>
+                    <div className="feedback-question">
+                      <p>Você recomendaria este destino?</p>
+                      <div className="feedback-options">
+                        {["yes", "maybe", "no"].map((option) => (
+                          <button
+                            key={option}
+                            className={`feedback-button ${
+                              feedback.question2 === option ? "selected" : ""
+                            }`}
+                            onClick={() =>
+                              handleFeedbackChange("question2", option)
+                            }
+                          >
+                            {option === "yes"
+                              ? "Sim"
+                              : option === "maybe"
+                              ? "Talvez"
+                              : "Não"}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
 
-                  <div className="feedback-question">
-                    <p>Como foi a organização da viagem?</p>
-                    <div className="feedback-options">
-                      <button
-                        className={`feedback-button ${
-                          feedback.question1 === "excellent" ? "selected" : ""
-                        }`}
-                        onClick={() =>
-                          handleFeedbackChange("question1", "excellent")
-                        }
-                      >
-                        Excelente
-                      </button>
-                      <button
-                        className={`feedback-button ${
-                          feedback.question1 === "good" ? "selected" : ""
-                        }`}
-                        onClick={() =>
-                          handleFeedbackChange("question1", "good")
-                        }
-                      >
-                        Boa
-                      </button>
-                      <button
-                        className={`feedback-button ${
-                          feedback.question1 === "regular" ? "selected" : ""
-                        }`}
-                        onClick={() =>
-                          handleFeedbackChange("question1", "regular")
-                        }
-                      >
-                        Regular
-                      </button>
-                      <button
-                        className={`feedback-button ${
-                          feedback.question1 === "bad" ? "selected" : ""
-                        }`}
-                        onClick={() => handleFeedbackChange("question1", "bad")}
-                      >
-                        Ruim
-                      </button>
+                    <div className="feedback-question">
+                      <p>Como avalia a relação custo-benefício?</p>
+                      <div className="feedback-options">
+                        {[
+                          "very-satisfied",
+                          "satisfied",
+                          "neutral",
+                          "dissatisfied",
+                        ].map((option) => (
+                          <button
+                            key={option}
+                            className={`feedback-button ${
+                              feedback.question3 === option ? "selected" : ""
+                            }`}
+                            onClick={() =>
+                              handleFeedbackChange("question3", option)
+                            }
+                          >
+                            {option === "very-satisfied"
+                              ? "Muito satisfeito"
+                              : option === "satisfied"
+                              ? "Satisfeito"
+                              : option === "neutral"
+                              ? "Neutro"
+                              : "Insatisfeito"}
+                          </button>
+                        ))}
+                      </div>
                     </div>
                   </div>
 
-                  <div className="feedback-question">
-                    <p>Você recomendaria este destino?</p>
-                    <div className="feedback-options">
-                      <button
-                        className={`feedback-button ${
-                          feedback.question2 === "yes" ? "selected" : ""
-                        }`}
-                        onClick={() => handleFeedbackChange("question2", "yes")}
-                      >
-                        Sim
-                      </button>
-                      <button
-                        className={`feedback-button ${
-                          feedback.question2 === "maybe" ? "selected" : ""
-                        }`}
-                        onClick={() =>
-                          handleFeedbackChange("question2", "maybe")
-                        }
-                      >
-                        Talvez
-                      </button>
-                      <button
-                        className={`feedback-button ${
-                          feedback.question2 === "no" ? "selected" : ""
-                        }`}
-                        onClick={() => handleFeedbackChange("question2", "no")}
-                      >
-                        Não
-                      </button>
-                    </div>
+                  <div className="review-section">
+                    <h4>Deixe sua opinião</h4>
+                    <textarea
+                      value={reviewText}
+                      onChange={(e) => setReviewText(e.target.value)}
+                      placeholder="Conte como foi sua experiência..."
+                      rows={3}
+                    />
                   </div>
 
-                  <div className="feedback-question">
-                    <p>Como avalia a relação custo-benefício?</p>
-                    <div className="feedback-options">
-                      <button
-                        className={`feedback-button ${
-                          feedback.question3 === "very-satisfied"
-                            ? "selected"
-                            : ""
-                        }`}
-                        onClick={() =>
-                          handleFeedbackChange("question3", "very-satisfied")
-                        }
-                      >
-                        Muito satisfeito
-                      </button>
-                      <button
-                        className={`feedback-button ${
-                          feedback.question3 === "satisfied" ? "selected" : ""
-                        }`}
-                        onClick={() =>
-                          handleFeedbackChange("question3", "satisfied")
-                        }
-                      >
-                        Satisfeito
-                      </button>
-                      <button
-                        className={`feedback-button ${
-                          feedback.question3 === "neutral" ? "selected" : ""
-                        }`}
-                        onClick={() =>
-                          handleFeedbackChange("question3", "neutral")
-                        }
-                      >
-                        Neutro
-                      </button>
-                      <button
-                        className={`feedback-button ${
-                          feedback.question3 === "dissatisfied"
-                            ? "selected"
-                            : ""
-                        }`}
-                        onClick={() =>
-                          handleFeedbackChange("question3", "dissatisfied")
-                        }
-                      >
-                        Insatisfeito
-                      </button>
-                    </div>
+                  <div className="recommendation-section">
+                    <h4>De 0 a 10, quanto você recomenda nosso site?</h4>
+
+                    <Slider
+                      min={0}
+                      max={10}
+                      step={1}
+                      value={recommendation}
+                      onChange={(value) => setRecommendation(value)}
+                      tooltip={{ open: true }} // Mostra o valor dentro da bolinha
+                      marks={{
+                        0: "0",
+                        5: "5",
+                        10: "10",
+                      }}
+                      trackStyle={{ backgroundColor: "#3b82f6" }} // Azul na linha preenchida
+                      handleStyle={{
+                        borderColor: "#3b82f6",
+                        backgroundColor: "#3b82f6",
+                        color: "white",
+                      }}
+                    />
                   </div>
-                </div>
 
-                <div className="review-section">
-                  <h4>Deixe sua opinião</h4>
-                  <textarea
-                    value={reviewText}
-                    onChange={(e) => setReviewText(e.target.value)}
-                    placeholder="Conte como foi sua experiência..."
-                    rows={4}
-                  />
+                  <button
+                    className="submit-review-button"
+                    onClick={handleSubmitReview}
+                    disabled={tripRating === 0}
+                  >
+                    Enviar Avaliação
+                  </button>
                 </div>
-
-                <div className="recommendation-section">
-                  <h4>De 0 a 10, quanto você recomenda nosso site?</h4>
-                  <input
-                    type="range"
-                    min="0"
-                    max="10"
-                    value={recommendation}
-                    onChange={(e) =>
-                      setRecommendation(parseInt(e.target.value))
-                    }
-                  />
-                  <div className="recommendation-value">
-                    <span>0</span>
-                    <span>5</span>
-                    <span>10</span>
-                    <div className="current-value">{recommendation}</div>
-                  </div>
-                </div>
-
-                <button
-                  className="submit-review-button"
-                  onClick={handleSubmitReview}
-                  disabled={tripRating === 0}
-                >
-                  Enviar Avaliação
-                </button>
               </div>
             )}
           </div>
