@@ -10,12 +10,20 @@ import MyRequestsPage from "./app/features/MyRequestsPage/MyRequestsPage";
 import Match from "./app/features/MatchPage/Match";
 import { matchPageAction } from "./app/features/services/action/matchPageAction";
 import Layout from "./app/core/layout/Layout/Layout";
+import { AuthProvider } from "./app/features/services/context/AuthContext";
+
+import { CreateTravelAction } from "./app/features/services/action/createTravelAction";
+
 import CreateTripModal from "./app/core/components/CreateTripModal/CreateTripModal";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Layout />,
+    element: (
+      <AuthProvider>
+        <Layout />
+      </AuthProvider>
+    ),
     errorElement: <ErrorPage />,
     children: [
       {
@@ -25,7 +33,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/login",
-        element: <LoginPage />,
+         element: <LoginPage />,
         action: loginPageAction,
       },
       {
@@ -59,7 +67,8 @@ const router = createBrowserRouter([
       {
         path: "/create-trip",
         element: <CreateTripModal />,
-  
+        action: CreateTravelAction
+
       },
     ],
   },

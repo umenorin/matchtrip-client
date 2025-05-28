@@ -13,7 +13,7 @@ export async function registerPageAction({ request }: ActionFunctionArgs) {
     nationality: String(formData.get("nationality")),
     gender: String(formData.get("gender")),
   };
-
+  console.log(user);
   const apiUrl = `${import.meta.env.VITE_LOCAL_API}/api/users/singup`;
 
   try {
@@ -25,11 +25,25 @@ export async function registerPageAction({ request }: ActionFunctionArgs) {
           "Content-Type": "application/json",
         },
         withCredentials: true,
-      }
+      },
     );
 
     if (response.data.token) {
-      return redirect("/"); 
+      const userData = response.data.token;
+      const { id, profileImage, ...rest } = userData;
+
+      // Adiciona a URL base do .env ao profileImage (se existir)
+      const updatedUserData = {
+        ...rest,
+        ...(profileImage && {
+          profileImage: `${import.meta.env.VITE_LOCAL_API}${profileImage}`,
+        }),
+      };
+
+      localStorage.setItem("user", JSON.stringify(updatedUserData));
+
+      localStorage.setItem("token", JSON.stringify(id));
+      return redirect("/");
     }
   } catch (error: any) {
     console.error("error: ", error);

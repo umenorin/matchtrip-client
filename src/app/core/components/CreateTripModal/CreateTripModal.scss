@@ -26,11 +26,11 @@
 
   &__close {
     position: absolute;
-    top: 1rem;
+    top: 0rem;
     right: 1rem;
     background: none;
     border: none;
-    font-size: 1.5rem;
+    font-size: 5rem;
     cursor: pointer;
     color: #666;
   }
@@ -90,10 +90,21 @@
     margin-bottom: 0.5rem;
   }
 
-  &__input-group {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+  &__input {
+    display: block;
+    height: 3rem;
+    width: 80%;
+    padding-left: 1rem;
+    border-radius: 4px;
+    border: 1px solid black;
+
+    &-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      padding-left: 3rem;
+      margin-bottom: 1rem;
+    }
   }
 
   &__label {
@@ -126,6 +137,16 @@
     }
   }
 
+  &__submit-button {
+    margin: auto;
+    height: 4rem;
+    width: 30rem;
+    background-color: #0098b6;
+    color: white;
+    border: none;
+    border-radius: 1rem;
+  }
+
   &__actions {
     display: flex;
     justify-content: flex-end;
@@ -144,4 +165,15 @@
       height: 120px;
     }
   }
+}
+//Remover os botões laterais do INPUT NUMBER
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Para Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
 }

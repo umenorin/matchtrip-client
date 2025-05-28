@@ -7,9 +7,9 @@ export async function loginPageAction({ request }: ActionFunctionArgs) {
   const password = String(formData.get("password"));
 
   const user = {
-    email:email,
-    password:password
-  }
+    email: email,
+    password: password,
+  };
 
   const apiUrl = `${import.meta.env.VITE_LOCAL_API}/api/users/login`;
 
@@ -22,15 +22,27 @@ export async function loginPageAction({ request }: ActionFunctionArgs) {
           "Content-Type": "application/json",
         },
         withCredentials: true,
-      }
+      },
     );
 
     if (response.data.token) {
+      const userData = response.data.token;
+      const { id, profileImage, ...rest } = userData;
+
+      // Adiciona a URL base do .env ao profileImage (se existir)
+      const updatedUserData = {
+        ...rest,
+        ...(profileImage && {
+          profileImage: `${import.meta.env.VITE_LOCAL_API}${profileImage}`,
+        }),
+      };
+
+      localStorage.setItem("user", JSON.stringify(updatedUserData));
+      localStorage.setItem("token", JSON.stringify(id));
+
       return redirect("/");
     }
-
   } catch (error: any) {
     console.error("Error: ", error);
-
   }
 }

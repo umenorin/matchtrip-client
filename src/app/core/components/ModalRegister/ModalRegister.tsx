@@ -3,7 +3,7 @@ import { FaCamera } from "react-icons/fa";
 import Input from "../../shared/Input/Input";
 import Button from "../../shared/Button/Button";
 import { useContext } from "react";
-import { AuthContext } from "../../context/AuthContext";
+import { AuthContext } from "../../../../app/features/services/context/AuthContext";
 import "./ModalRegister.scss";
 
 interface ModalRegisterProps {
