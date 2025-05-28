@@ -69,6 +69,7 @@ const CreateTripModal = ({ onClose }: CreateTripModalProps | any) => {
           method="post"
           encType="multipart/form-data"
           className="create-trip-modal__form"
+          action="/create-trip"
         >
           {/* Foto da Viagem */}
           <div className="create-trip-modal__photo-upload">

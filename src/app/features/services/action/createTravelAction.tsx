@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ActionFunctionArgs } from "react-router";
+import { ActionFunctionArgs, redirect } from "react-router";
 
 export async function CreateTravelAction({ request }: ActionFunctionArgs) {
   const formData = await request.formData();
@@ -20,14 +20,15 @@ export async function CreateTravelAction({ request }: ActionFunctionArgs) {
   formDataToSend.append("imageTravel", imageTravel as File); // o arquivo
   formDataToSend.append("travel", JSON.stringify(travel)); // string JSON
 
-  console.log(travel.owner);
   const apiUrl = `${import.meta.env.VITE_LOCAL_API}/api/travel/create`;
   try {
     const response = await axios.post(apiUrl, formDataToSend, {
-      
       withCredentials: true,
     });
-
+    console.log(response);
+    if (response.data) {
+      return redirect("/");
+    }
     console.log(response);
   } catch (error: any) {
     throw console.error(error.message);
