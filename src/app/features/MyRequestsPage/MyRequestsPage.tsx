@@ -216,7 +216,7 @@ const MyRequestsPage = () => {
             ← Voltar
           </button>
         ) : null}
-        <h1>Minhas Viagens</h1>
+        <h1 >Minhas Viagens</h1>
       </div>
 
       <div className="my-requests-page__tabs">

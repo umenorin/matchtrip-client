@@ -18,7 +18,7 @@ export default function HomePage() {
           <button type="button" onClick={() => setShowModal(true)}>
             Nova Viagem
           </button>
-          {showModal && <CreateTripModal/>}
+          {showModal && <CreateTripModal onClose={() => setShowModal(false)}/>}
         </div>
       )}
       
